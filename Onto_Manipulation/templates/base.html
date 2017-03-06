@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <title>NELL's Ontology Manipulation</title>
+    <style>
+        body {
+            padding-top: 65px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <nav id="navigation_bar" class="navbar navbar-default navbar-fixed-top">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul align="center" class="nav nav-pills nav-justified">
+              <li role="presentation" {% block home_onto %}{% endblock %}><a href="/">Home</a></li>
+              <li role="presentation" {% block edit_onto %}{% endblock %}><a href="/edit">Edit Ontology</a></li>
+                <li role="presentation" {% block onto_converter %}{% endblock %}><a href="/convert">Ontology Converter</a></li>
+                <li role="presentation" {% block downloads %}{% endblock %}><a href="/download">Downloads</a></li>
+            </ul>
+        </div>
+    </nav>
+        <div onwheel="scroll_nav()">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+
+
+</body>
+<footer>
+    <h5 align="center">Desenvolvido por:</h5>
+    <h5 align="center">Felipe Quécole</h5>
+    <h5 align="center">Pedro Henrique Migliatti</h5>
+    <h5 align="center">Romão Martines</h5>
+</footer>
+</html>
