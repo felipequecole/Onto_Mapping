@@ -7,7 +7,13 @@ from collections import OrderedDict
 import os
 
 
-def create_xml(rel_path='./data/relations.xls', cat_path='./data/categories.xls'):
+def create_xml(rel_path='static/Onto_Manipulation/data/relations.xls', cat_path='static/Onto_Manipulation/data/categories.xls'):
+    pwd = os.path.dirname(__file__)
+    rel_path = os.path.join(pwd, rel_path)
+
+    pwd = os.path.dirname(__file__)
+    cat_path = os.path.join(pwd, cat_path)
+
     # Opens the xls file
     relations = open_workbook(rel_path)
     categories = open_workbook(cat_path)
@@ -58,11 +64,16 @@ def create_xml(rel_path='./data/relations.xls', cat_path='./data/categories.xls'
     root_tree = etree.ElementTree(root)
 
     # saves the output file
-    outFile = open('./data/ontology.xml', 'w')
+    pwd = os.path.dirname(__file__)
+    out_path = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
+    outFile = open(out_path, 'w')
     root_tree.write(outFile)
 
 
-def linker(filename='./data/ontology.xml'):  # create the references in the xml file
+def linker(filename='static/Onto_Manipulation/data/ontology.xml'):  # create the references in the xml file
+
+    pwd = os.path.dirname(__file__)
+    filename = os.path.join(pwd, filename)
 
     # Open the xml file
     raw_xml = open(filename, 'r')
@@ -141,11 +152,15 @@ def linker(filename='./data/ontology.xml'):  # create the references in the xml 
                 if (relation.attrib['id'] == str(inversex)):
                     aux = etree.SubElement(relation[13], 'relationRef', {'id': str(origin)})
 
-    outFile = open('./data/ontology_linked.xml', 'w')
+    pwd = os.path.dirname(__file__)
+    out_path = os.path.join(pwd, './data/ontology_linked.xml')
+    outFile = open(out_path, 'w')
     tree.write(outFile)
 
 
-def create_xls(input_file='./data/ontology_linked.xml'):
+def create_xls(input_file='static/Onto_Manipulation/data/ontology_linked.xml'):
+    pwd = os.path.dirname(__file__)
+    input_file = os.path.join(pwd, input_file)
     # open the xml file
     linked_xml = open(input_file, 'r')
 
@@ -182,7 +197,7 @@ def create_xls(input_file='./data/ontology_linked.xml'):
         relc_index = -1
 
     # creating the output file
-    out_xls = open('./data/made_relations.xls', 'w')
+    out_xls = open('static/Onto_Manipulation/data/made_relations.xls', 'w')
     # saving the relations.xls file
     relations_file.save(out_xls)
     out_xls.close()
@@ -211,7 +226,9 @@ def create_xls(input_file='./data/ontology_linked.xml'):
         catc_index = -1
 
     # creating the output file
-    out_xls = open('./data/made_categories.xls', 'w')
+    pwd = os.path.dirname(__file__)
+    out_path = os.path.join(pwd, 'static/Onto_Manipulation/data/made_categories.xls')
+    out_xls = open(out_path, 'w')
     # saving the relations.xls file
     categories_file.save(out_xls)
     out_xls.close()

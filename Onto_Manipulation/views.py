@@ -3,9 +3,13 @@ from Onto_Manipulation import Onto_mapping
 
 
 
-def index(request):
+def relation(request):
     dict = Onto_mapping.return_dict()
-    return render(request, 'Onto_Manipulation/home.html', dict)
+    return render(request, 'Onto_Manipulation/home_rel.html', dict)
+
+def category(request):
+    dict = Onto_mapping.return_dict()
+    return render(request, 'Onto_Manipulation/home_cat.html', dict)
 
 def edit(request):
     return render(request, 'Onto_Manipulation/edit.html', {})

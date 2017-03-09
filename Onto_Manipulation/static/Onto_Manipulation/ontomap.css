@@ -1,0 +1,42 @@
+body {
+    padding-top: 65px;
+    width: 800px;
+    margin: 0 auto;
+}
+
+*{
+    font-family: Ubuntu;
+}
+
+.panel-primary{
+    border-color: black;
+}
+
+.panel-primary > .panel-heading {
+    background-image: none;
+    background: #000000;
+    color: #fff;
+}
+
+.nav-pills > li > a {
+    border-radius: 4px;
+    color = black;
+}
+
+ .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: white;
+        background-color: black;
+    }
+
+.nav-pills > li.active > a:hover {
+    background-color: #2B3837;
+    color:white;
+}
+
+footer{
+    margin: 0 auto;
+    border-top: solid #000000 1px;
+    border-top-style: inset;
+    width: 300px;
+
+}

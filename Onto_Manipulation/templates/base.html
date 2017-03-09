@@ -1,31 +1,62 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+    <link rel="icon"
+      type="image/png"
+      href="{% static 'mall.png' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'ontomap.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One|Ubuntu" rel="stylesheet">
     <title>NELL's Ontology Manipulation</title>
-    <style>
-        body {
-            padding-top: 65px;
-        }
-    </style>
+
 </head>
 <body>
 <div class="container-fluid">
-    <nav id="navigation_bar" class="navbar navbar-default navbar-fixed-top">
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul align="center" class="nav nav-pills nav-justified">
-              <li role="presentation" {% block home_onto %}{% endblock %}><a href="/">Home</a></li>
-              <li role="presentation" {% block edit_onto %}{% endblock %}><a href="/edit">Edit Ontology</a></li>
-                <li role="presentation" {% block onto_converter %}{% endblock %}><a href="/convert">Ontology Converter</a></li>
-                <li role="presentation" {% block downloads %}{% endblock %}><a href="/download">Downloads</a></li>
-            </ul>
-        </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img class="navbar-brand" src="{% static 'mall.png' %}"  >
+                <a class="navbar-brand" href="#">Ontology Editor</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li {% block home_onto %}{% endblock %}><a href="/">Home</a></li>
+                    <li {% block edit_onto %}{% endblock %}><a href="/edit">Edit Ontology</a></li>
+                    <li {% block onto_converter %}{% endblock %}><a href="/convert">Converter</a></li>
+                    <li {% block downloads %}{% endblock %}><a href="/download">Downloads</a></li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Admin</a></li>
+                        <li><a href="#">Usuario</a></li>
+                        <li role="separator" class="divider"></li>
+
+                    </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+
     </nav>
-        <div onwheel="scroll_nav()">
+        <div>
             {% block content %}{% endblock %}
         </div>
     </div>
@@ -33,7 +64,7 @@
 
 
 </body>
-<footer>
+<footer clas="jumbotron">
     <h5 align="center">Desenvolvido por:</h5>
     <h5 align="center">Felipe Quécole</h5>
     <h5 align="center">Pedro Henrique Migliatti</h5>
