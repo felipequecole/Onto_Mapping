@@ -1,0 +1,6 @@
+Django==1.10.6
+django-xslt==0.4.5
+xlrd==1.0.0
+xlwt==1.2.0
+xmltodict==0.10.2
+XSLTools==0.5
