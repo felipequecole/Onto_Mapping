@@ -119,6 +119,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+PROJECT_DIR=os.path.dirname(__file__)
+
+STATIC_ROOT= os.path.join(PROJECT_DIR,'Onto_Map/static')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'Onto_Manipulation/static/Onto_Manipulation'),
