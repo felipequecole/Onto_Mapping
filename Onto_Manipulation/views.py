@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from Onto_Manipulation import Onto_mapping
-
-
+import xml.etree.ElementTree as etree
 
 def relation(request):
     dict = Onto_mapping.return_dict()
@@ -12,6 +11,7 @@ def category(request):
     return render(request, 'Onto_Manipulation/home_cat.html', dict)
 
 def edit(request):
+
     return render(request, 'Onto_Manipulation/edit.html', {})
 
 def convert(request):
