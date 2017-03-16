@@ -1,3 +1,23 @@
 {% extends 'home.html' %}
 
 {% block category %}class="active"{% endblock %}
+
+{% block home_content %}
+    {% for category in Ontology.Categories.Category %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Category name: {{ category.categoryName }}
+            </div>
+            <div class="panel-body">
+                <p><b>Human Format: </b> {{ category.humanFormat }}</p>
+                <p><b>Generalizations: </b> {{ category.generalizations }}</p>
+                <p><b>Mutex Exceptions: </b> {{ category.mutexExceptions }}</p>
+                <p><b>Known Negatives: </b> {{ category.knownNegatives }}</p>
+                <p><b>Author: </b> {{ category.author }}</p>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}
