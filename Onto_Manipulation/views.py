@@ -16,6 +16,8 @@ def edit(request):
 def edit_cat(request):
     return render(request, 'Onto_Manipulation/edit_cat.html', {})
 
+def edit_rel(request):
+    return render(request, 'Onto_Manipulation/edit_rel.html', {})
 
 def convert(request):
     return render(request, 'Onto_Manipulation/convert.html',{})
