@@ -11,8 +11,11 @@ def category(request):
     return render(request, 'Onto_Manipulation/home_cat.html', dict)
 
 def edit(request):
-
     return render(request, 'Onto_Manipulation/edit.html', {})
+
+def edit_cat(request):
+    return render(request, 'Onto_Manipulation/edit_cat.html', {})
+
 
 def convert(request):
     return render(request, 'Onto_Manipulation/convert.html',{})

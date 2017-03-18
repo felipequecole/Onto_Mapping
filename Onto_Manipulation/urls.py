@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^relation/$', views.relation, name='relation'),
     url(r'^category/$', views.category, name='category'),
     url(r'^edit/$', views.edit, name='edit'),
+    url(r'^edit_cat/$', views.edit_cat, name='edit_cat'),
     url(r'^convert/$', views.convert, name='convert'),
     url(r'^download/$', views.download, name='download'),
 ]
