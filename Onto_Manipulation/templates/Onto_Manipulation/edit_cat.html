@@ -8,95 +8,94 @@
 
 {% block body %}
     <div class="container">
-        <form>
+        <form method="POST" action=".">
+            {% csrf_token %}
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Category Name</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="name">
+                    <input class="form-control" type="text" value="" id="name" name="name" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">English Name</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="english">
+                    <input class="form-control" type="text" value="" id="english" name="english" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Human Format</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="human">
+                    <input class="form-control" type="text" value="" id="human" name="human" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Visible</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     <label class="btn btn-primary">
-                        <input type="radio" name="options" id="option2" autocomplete="off" checked> Sim
+                        <input type="radio" name="options1" id="option1" autocomplete="off" checked required> Sim
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="options" id="option3" autocomplete="off"> No
+                        <input type="radio" name="options2" id="option2" autocomplete="off"> No
                     </label>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Generalization</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="generalization">
+                    <input class="form-control" type="text" value="" id="generalization" name="generalization" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Mutex Exception</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="mutex">
+                    <input class="form-control" type="text" value="" id="mutex" name="mutex" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Know Negatives</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="negatives">
+                    <input class="form-control" type="text" value="" id="negatives" name="negatives" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Seed Instances</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="instances">
+                    <input class="form-control" type="text" value="" id="instances" name="instances" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Seed Extraction Patterns</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="patterns">
+                    <input class="form-control" type="text" value="" id="patterns" name="patterns" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">ConceptSynonyms</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="synonyms">
+                    <input class="form-control" type="text" value="" id="synonyms" name="synonyms" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Author</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="author">
+                    <input class="form-control" type="text" value="" id="author" name="author" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Description</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="desc">
+                    <input class="form-control" type="text" value="" id="desc" name="desc" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Comment</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="comment">
+                    <input class="form-control" type="text" value="" id="comment" name="comment" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-offset-7 col-sm-2">
-                    <button type="submit" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>Save
-                    </button>
+                    <input value="Save" type="submit" class="btn btn-primary">
                     <a href="/category/" class="btn btn-default pull-right" role="button" >Cancel</a>
                 </div>
             </div>
