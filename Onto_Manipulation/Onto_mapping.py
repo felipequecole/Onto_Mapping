@@ -239,4 +239,43 @@ def return_dict(filename='static/Onto_Manipulation/data/ontology.xml'):
     print (filename)
     xml = open(filename, 'rb')
     ontology = xmltodict.parse(xml)
+    print(ontology['Ontology']['Relations']['Relation'])
     return ontology
+
+def add_relation(relation):
+    pwd = os.path.dirname(__file__)
+    filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
+    xml_origin = open(filename, 'rb')
+
+    ontology = xmltodict.parse(xml_origin)
+
+    xml_origin.close()
+
+    last_index = len(ontology['Ontology']['Relations']['Relation'])
+    last_index = last_index + 1
+    relation['@id'] = last_index
+    relation = OrderedDict(relation)
+    ontology['Ontology']['Relations']['Relation'].update(relation)
+
+    xml_target = open(filename, 'wb')
+    xmltodict.unparse(ontology, output=xml_target)
+
+def add_category(category):
+    pwd = os.path.dirname(__file__)
+    filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
+    xml_origin = open(filename, 'rb')
+
+    ontology = xmltodict.parse(xml_origin)
+
+    xml_origin.close()
+
+    last_index = len(ontology['Ontology']['Categories']['Category'])
+    last_index = last_index + 1
+    category['@id'] = last_index
+    category = OrderedDict(category)
+    ontology['Ontology']['Categories']['Category'].update(category)
+
+    xml_target = open(filename, 'wb')
+    xmltodict.unparse(ontology, output=xml_target)
+
+
