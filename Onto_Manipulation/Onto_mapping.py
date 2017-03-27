@@ -255,7 +255,7 @@ def add_relation(relation):
     last_index = last_index + 1
     relation['@id'] = last_index
     relation = OrderedDict(relation)
-    ontology['Ontology']['Relations']['Relation'].update(relation)
+    ontology['Ontology']['Relations']['Relation'].append(relation)
 
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)
@@ -273,7 +273,7 @@ def add_category(category):
     last_index = last_index + 1
     category['@id'] = last_index
     category = OrderedDict(category)
-    ontology['Ontology']['Categories']['Category'].update(category)
+    ontology['Ontology']['Categories']['Category'].append(category)
 
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)

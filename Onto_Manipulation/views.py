@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from Onto_Manipulation import Onto_mapping
+from django.views.decorators.csrf import csrf_exempt
 import xml.etree.ElementTree as etree
 import os
 
@@ -14,45 +15,18 @@ def category(request):
 def edit(request):
     return render(request, 'Onto_Manipulation/edit.html', {})
 
+@csrf_exempt
 def edit_cat(request):
     if request.method == 'POST':
-        categoryName = request.POST['name']
-        englishName = request.POST['english']
-        humanFormat = request.POST['human']
-        # visibleTrue = request.POST['options1']
-        # visibleFalse = request.POST['options2']
-        generalization = request.POST['generalization']
-        mutexException = request.POST['mutex']
-        knowNegatives = request.POST['negatives']
-        seedInstaves = request.POST['instances']
-        seedPatterns = request.POST['patterns']
-        conceptSynonyms = request.POST['synonyms']
-        author = request.POST['author']
-        description = request.POST['desc']
-        comment = request.POST['comment']
-
-        pwd = os.path.dirname(__file__)
-        xml_path = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
-        xml = etree.parse(xml_path)
-        root = etree.Element('Ontology')
-        cats = etree.SubElement(root, 'Categories')
-        cat = etree.SubElement(cats, 'Category')
-        cat.set('id',"999")
-
-
-        test = etree.SubElement(cat, 'categoryName')
-        test.text = (str(categoryName)).encode('utf8')
-        test = etree.SubElement(cat, 'englishName')
-        test.text = (str(englishName)).encode('utf8')
-        test = etree.SubElement(cat, 'humanFormat')
-        test.text = (str(humanFormat)).encode('utf8')
-
-        xml.write('static/Onto_Manipulation/data/ontology.xml')
-
-
+        form = dict(request.POST)
+        Onto_mapping.add_category(form)
     return render(request, 'Onto_Manipulation/edit_cat.html', {})
 
+@csrf_exempt
 def edit_rel(request):
+    if request.method == 'POST':
+        form = dict(request.POST)
+        Onto_mapping.add_relation(form)
     return render(request, 'Onto_Manipulation/edit_rel.html', {})
 
 def convert(request):

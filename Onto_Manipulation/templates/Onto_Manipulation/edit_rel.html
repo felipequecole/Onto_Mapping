@@ -8,27 +8,28 @@
 
 {% block body %}
     <div class="container">
-        <form method="POST">
+        <form method="POST" action=".">
+             {% csrf_token %}
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Relation Name</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="name" name="name">
+                    <input class="form-control" type="text" value="" id="relationName" name="relationName">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Human Format</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="human" name="human">
+                    <input class="form-control" type="text" value="" id="humanFormat" name="humanFormat">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Visible</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     <label class="btn btn-primary">
-                        <input type="radio" name="options" id="option1" name="option1" autocomplete="off" checked> Sim
+                        <input type="radio" name="visible" id="visible" value="1" autocomplete="off" checked> Sim
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="options" id="option2" name="option2" autocomplete="off"> No
+                        <input type="radio" name="visible" id="visible" value = "0" autocomplete="off"> Nao
                     </label>
                 </div>
             </div>
@@ -47,13 +48,13 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Mutex Exception</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="mutex" name="mutex">
+                    <input class="form-control" type="text" value="" id="mutexExceptions" name="mutexExceptions">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Know Negatives</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="negatives" name="negatives">
+                    <input class="form-control" type="text" value="" id="knownNegatives" name="knownNegatives">
                 </div>
             </div>
             <div class="form-group row">
@@ -65,13 +66,13 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Seed Instances</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="instances" name="instances">
+                    <input class="form-control" type="text" value="" id="seedInstances" name="seedInstances">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Seed Extraction Patterns</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="patterns" name="patterns">
+                    <input class="form-control" type="text" value="" id="seedExtractionPatterns" name="seedExtractionPatterns">
                 </div>
             </div>
             <div class="form-group row">
@@ -89,7 +90,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Description</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="desc" name="desc">
+                    <input class="form-control" type="text" value="" id="description" name="description">
                 </div>
             </div>
             <div class="form-group row">
