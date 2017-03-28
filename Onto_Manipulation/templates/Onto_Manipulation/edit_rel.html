@@ -34,6 +34,23 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Populate</label>
+                <div class="btn-group col-sm-7" data-toggle="buttons">
+                    <label class="btn btn-primary">
+                        <input type="radio" name="populate" id="populate" value="1" autocomplete="off" checked> Sim
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="populate" id="populate" value = "0" autocomplete="off"> Nao
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Generalizations</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="generalizations" name="generalizations">
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Domain</label>
                 <div class="col-sm-7">
                     <input class="form-control" type="text" value="" id="domain" name="domain">
@@ -43,6 +60,50 @@
                 <label for="example-text-input" class="col-sm-2 col-form-label">Range</label>
                 <div class="col-sm-7">
                     <input class="form-control" type="text" value="" id="range" name="range">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Domain Within Range</label>
+                <div class="btn-group col-sm-7" data-toggle="buttons">
+                    <label class="btn btn-primary">
+                        <input type="radio" name="domainWithinRange" id="domainWithinRange" value="1" autocomplete="off" checked> Sim
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="domainWithinRange" id="domainWithinRange" value = "0" autocomplete="off"> Nao
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Range Within Domain</label>
+                <div class="btn-group col-sm-7" data-toggle="buttons">
+                    <label class="btn btn-primary">
+                        <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value="1" autocomplete="off" checked> Sim
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value = "0" autocomplete="off"> Nao
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Antireflexive</label>
+                <div class="btn-group col-sm-7" data-toggle="buttons">
+                    <label class="btn btn-primary">
+                        <input type="radio" name="antireflexive" id="antireflexive" value="1" autocomplete="off" checked> Sim
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="antireflexive" id="antireflexive" value = "0" autocomplete="off"> Nao
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Antisymmetric</label>
+                <div class="btn-group col-sm-7" data-toggle="buttons">
+                    <label class="btn btn-primary">
+                        <input type="radio" name="antisymmetric" id="antisymmetric" value="1" autocomplete="off" checked> Sim
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="antisymmetric" id="antisymmetric" value = "0" autocomplete="off"> Nao
+                    </label>
                 </div>
             </div>
             <div class="form-group row">
@@ -76,15 +137,61 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="example-text-input" class="col-sm-2 col-form-label">ConceptSynonyms</label>
+                <label for="example-text-input" class="col-sm-2 col-form-label">Number of Values</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="synonyms" name="synonyms">
+                    <input class="form-control" type="text" value="" id="nrOfValues" name="nrOfValues">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Number of Inverse Values</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="nrOfInverseValues" name="nrOfInverseValues">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Required for Domain</label>
+                <div class="btn-group col-sm-7" data-toggle="buttons">
+                    <label class="btn btn-primary">
+                        <input type="radio" name="requiredForDomain" id="requiredForDomain" value="TRUE" autocomplete="off" checked> Sim
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="requiredForDomain" id="requiredForDomain" value = "FALSE" autocomplete="off"> Nao
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Required for Range</label>
+                <div class="btn-group col-sm-7" data-toggle="buttons">
+                    <label class="btn btn-primary">
+                        <input type="radio" name="requiredForRange" id="requiredForRange" value="TRUE" autocomplete="off" checked> Sim
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="requiredForRange" id="requiredForRange" value = "FALSE" autocomplete="off"> Nao
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Query String</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="queryString" name="queryString">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">editDate</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="editDate" name="editDate">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Author</label>
                 <div class="col-sm-7">
                     <input class="form-control" type="text" value="" id="author" name="author">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Curator</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="curator" name="curator">
                 </div>
             </div>
             <div class="form-group row">
@@ -96,7 +203,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Comment</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="" id="comment" name="comment">
+                    <input class="form-control" type="text" value="" id="comment" name="comment ">
                 </div>
             </div>
             <div class="form-group row">
