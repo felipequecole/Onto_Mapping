@@ -23,7 +23,7 @@ def edit_cat(request):
     return render(request, 'Onto_Manipulation/edit_cat.html', {})
 
 @csrf_exempt
-def edit_rel(request):
+def edit_rel(request, id=""):
     if request.method == 'POST':
         form = dict(request.POST)
         Onto_mapping.add_relation(form)
