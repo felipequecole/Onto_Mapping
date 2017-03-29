@@ -1,3 +1,12 @@
 {% extends 'base.html' %}
 
 {% block onto_converter %} class="active" {% endblock %}
+
+{% block body %}
+    <form method="POST" actions=".">
+        {% csrf_token %}
+        <input type="file" name="xmlfile">
+
+        <input type="submit" value="upload xml file">
+    </form>
+{% endblock body %}

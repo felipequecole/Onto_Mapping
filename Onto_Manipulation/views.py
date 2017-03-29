@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from Onto_Manipulation import Onto_mapping
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 import xmltodict
 import os
 
@@ -49,8 +50,36 @@ def edit_rel(request, id=""):
 def convert(request):
     return render(request, 'Onto_Manipulation/convert.html',{})
 
+def download_XML(request):
+    pwd = os.path.dirname(__file__)
+    file_path = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+
+    return render(request, 'Onto_Manipulation/download.html', {})
+
+
+def download_XLS(request):
+    pwd = os.path.dirname(__file__)
+    file_path = os.path.join(pwd, 'static/Onto_Manipulation/data/relations.xls')
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/xls    ")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+
+    return render(request, 'Onto_Manipulation/download.html', {})
+
 def download(request):
     return render(request, 'Onto_Manipulation/download.html', {})
 
+def upload_XML(request):
+    if request.method=='POST':
+        xmlfile = request.FILES.get('xmlfile', False)
+
+    return render(request, 'Onto_Manipulation/convert.html', {})
 
 # Create your views here.

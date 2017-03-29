@@ -1,3 +1,23 @@
 {% extends 'base.html' %}
 
 {% block downloads %}class="active"{% endblock %}
+
+{% block body %}
+    <form method="POST" actions=".">
+        {% csrf_token %}
+        <input type="file" name="xmlfile">
+
+        <input type="submit" value="upload xml file">
+    </form>
+    <br>
+    <br>
+    <a href="download_xml" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span> Download XML</a>
+    <br>
+    <br>
+    <a href="download_xls" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span> Download XLS</a>
+    <br>
+    <br>
+    <a href="upload_xml" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span> Upload XML</a>
+    <br>
+    <br>
+{% endblock body %}
