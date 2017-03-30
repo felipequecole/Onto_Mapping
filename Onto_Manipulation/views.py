@@ -21,6 +21,7 @@ def edit_cat(request):
     if request.method == 'POST':
         form = dict(request.POST)
         Onto_mapping.add_category(form)
+        return render(request, 'Onto_Manipulation/sucess.html')
     return render(request, 'Onto_Manipulation/edit_cat.html', {})
 
 @csrf_exempt
@@ -40,8 +41,10 @@ def edit_rel(request, id=""):
         form = dict(request.POST)
         if(id == 'new'):
             Onto_mapping.add_relation(form)
+            return render(request, 'Onto_Manipulation/sucess.html', {})
         else:
             Onto_mapping.edit_relation(form, relationDic['@id'])
+            return render(request, 'Onto_Manipulation/sucess.html')
 
         relationDic = form
 

@@ -29,13 +29,24 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Populate</label>
+                <div class="btn-group col-sm-7" data-toggle="buttons">
+                    <label class="btn btn-primary">
+                        <input type="radio" name="populate" id="populate" value="1" autocomplete="off" checked required> Sim
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="populate" id="populate" value= "0" autocomplete="off"> Nao
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Visible</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     <label class="btn btn-primary">
-                        <input type="radio" name="visible" id="1" value="1" autocomplete="off" checked required> Sim
+                        <input type="radio" name="visible" id="visible" value="1" autocomplete="off" checked required> Sim
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="visible" id="0" value= "0" autocomplete="off"> Nao
+                        <input type="radio" name="visible" id="visible" value= "0" autocomplete="off"> Nao
                     </label>
                 </div>
             </div>
@@ -58,6 +69,12 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Instance Type</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="knownNegatives" name="instanceType" required>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Seed Instances</label>
                 <div class="col-sm-7">
                     <input class="form-control" type="text" value="" id="seedInstances" name="seedInstances" required>
@@ -70,9 +87,21 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="example-text-input" class="col-sm-2 col-form-label">ConceptSynonyms</label>
+                <label for="example-text-input" class="col-sm-2 col-form-label">Concept Synonyms</label>
                 <div class="col-sm-7">
                     <input class="form-control" type="text" value="" id="conceptSynonyms" name="conceptSynonyms" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Query String</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="queryString" name="queryString" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Edit Date</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="editDate" name="editDate" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -82,9 +111,21 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Curator</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="curator" name="curator" required>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Description</label>
                 <div class="col-sm-7">
                     <input class="form-control" type="text" value="" id="description" name="description" required>
+                </div>
+            </div>
+             <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Freebase ID</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" value="" id="freebaseID" name="freebaseID" required>
                 </div>
             </div>
             <div class="form-group row">
