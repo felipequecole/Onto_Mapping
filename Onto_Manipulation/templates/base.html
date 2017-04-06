@@ -9,9 +9,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'ontomap.css' %}">
+    <link rel="stylesheet" href="{% static 'dialog.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.knob/1.2.2/jquery.knob.js"></script>
+    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload-process.js"></script>
+    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload-validate.js"></script>
+    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload-ui.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One|Ubuntu" rel="stylesheet">
+
+
+
     <title>NELL's Ontology Manipulation</title>
 
 </head>
@@ -30,16 +42,23 @@
                     <span class="icon-bar"></span>
                 </button>
                 <img class="navbar-brand" src="{% static 'mall.png' %}"  >
-                <a class="navbar-brand" href="#">Ontology Editor</a>
+                <a class="navbar-brand" href="/">Ontology Editor</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li {% block home_onto %}{% endblock %}><a href="/">Home</a></li>
-                    <li {% block edit_onto %}{% endblock %}><a href="/edit">Edit Ontology</a></li>
-                    <li {% block onto_converter %}{% endblock %}><a href="/convert">Converter</a></li>
-                    <li {% block downloads %}{% endblock %}><a href="/download">Downloads</a></li>
+                    <li class="dropdown" {% block edit_onto %}{% endblock %}>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Ontology
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/edit">Edit</a></li>
+                            <li><a href="/download_xml">Download XML</a></li>
+                            <li><a href="/download_xls">Download XLS</a></li>
+                            <li><a href="/upload_xml" id="openUpload">Upload XML</a></li>
+                        </ul>
+                    </li>
+                    <li {% block onto_converter %}{% endblock %}><a href="/convert">About Us</a></li>
 
                 </ul>
 
@@ -63,7 +82,48 @@
         </div>
     </div>
 
+<div class="modal" id="uploadModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title" id="myModalLabel">Upload XML</h4>
+
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div id="upload">
+                    <form action="." method="POST">
+                        {% csrf_token %}
+                        <div id="drop">Upload XML<a>Browse</a>
+                            <input type="file" name="upl" />
+                        </div>
+                        <div class="fileupload-buttonbar">
+                            <div>
+                                <button type="submit" class="btn btn-success start"> <i class="glyphicon glyphicon-upload"></i><span>Upload</span>
+                                </button>
+                                <button type="reset" class="btn btn-warning cancel"> <i class="glyphicon glyphicon-upload"></i><span>Clear</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- The table listing the files available for upload/download -->
+                        <!--<table class="table table-striped">
+                            <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+                        </table>-->
+                        <ol class="files upload-files-list"></ol>
+                    <!--files go here-->
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="{% static 'dialog.js' %}"> </script>
 
 </body>
 <footer clas="jumbotron">

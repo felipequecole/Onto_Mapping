@@ -20,7 +20,7 @@ body {
 
 .nav-pills > li > a {
     border-radius: 4px;
-    color = black;
+    color :  black;
 }
 
  .nav-pills > li.active > a, .nav-pills > li.active > a:focus {

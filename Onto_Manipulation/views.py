@@ -5,6 +5,10 @@ from django.http import HttpResponse
 import xmltodict
 import os
 
+def index(request):
+    dict = Onto_mapping.return_dict()
+    return render(request, 'home.html', dict)
+
 def relation(request):
     dict = Onto_mapping.return_dict()
     return render(request, 'Onto_Manipulation/home_rel.html', dict)
@@ -67,7 +71,7 @@ def download_XLS(request):
     file_path = os.path.join(pwd, 'static/Onto_Manipulation/data/relations.xls')
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type="application/xls    ")
+            response = HttpResponse(fh.read(), content_type="application/xls")
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
             return response
 
