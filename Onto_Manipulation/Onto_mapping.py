@@ -254,7 +254,12 @@ def add_relation(relation):
     last_index = len(ontology['Ontology']['Relations']['Relation'])
     last_index = last_index + 1
     relation['@id'] = last_index
-    relation = OrderedDict(relation)
+    attrib_order=['@id', 'relationName', 'humanFormat', 'populate', 'visible', 'generalizations', 'domain', 'range', 'domainWithinRange',
+           'rangeWithinDomain', 'antireflexive', 'antisymmetric', 'mutexExceptions', 'knownNegatives', 'inverse',
+           'seedInstances', 'seedExtractionPatterns', 'nrOfValues', 'nrOfInverseValues', 'requiredForDomain',
+           'requiredForRange', 'queryString', 'editDate', 'author', 'curator', 'description', 'freebaseID', 'comment', 'csrfmiddlewaretoken']
+    relation = OrderedDict((k, relation[k]) for k in attrib_order)
+    del relation['csrfmiddlewaretoken']
     ontology['Ontology']['Relations']['Relation'].append(relation)
 
     xml_target = open(filename, 'wb')
@@ -291,7 +296,12 @@ def add_category(category):
     last_index = len(ontology['Ontology']['Categories']['Category'])
     last_index = last_index + 1
     category['@id'] = last_index
+    attrib_order=['@id', 'categoryName', 'englishName', 'humanFormat', 'populate', 'visible', 'generalizations',
+                  'mutexExceptions', 'knownNegatives', 'instanceType', 'seedInstances', 'seedExtractionPatterns',
+                  'conceptSynonyms', 'queryString', 'editDate', 'author', 'curator', 'description', 'freebaseID', 'comment']
     category = OrderedDict(category)
+    category = OrderedDict((k, category[k]) for k in attrib_order)
+    #del category['csrfmiddlewaretoken']
     ontology['Ontology']['Categories']['Category'].append(category)
 
     xml_target = open(filename, 'wb')
