@@ -24,20 +24,20 @@ $(function () {
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
         //url: 'AJAX.ashx',
-        url: 'http://jquery-file-upload.appspot.com/',
-        dataType: 'json',
-        disableImageLoad: true,
-        headers: {
-            Accept: "application/json"
-        },
-        accept: 'application/json',
+        // url: 'http://jquery-file-upload.appspot.com/',
+        // dataType: 'json',
+        // disableImageLoad: true,
+        // headers: {
+        //     Accept: "application/json"
+        // },
+        // accept: 'application/json',
         maxFileSize: 10000000, //5mb
-        maxNumberOfFiles: 5,
-        sequentialUploads: true,
-        //singleFileUploads: false,
+        maxNumberOfFiles: 1,
+        //sequentialUploads: true,
+        singleFileUploads: true,
         //resizeMaxWidth: 1920,
         //resizeMaxHeight: 1200,
-        //acceptFileTypes: /(.|\/)(gif|jpe?g|png|pdf)$/i,
+        acceptFileTypes: /(.|\/)(xml)$/i,
         uploadTemplateId: null,
         downloadTemplateId: null,
         uploadTemplate: function (o) {
@@ -94,35 +94,38 @@ $(function () {
     $('#upload').bind('fileuploadprocessalways', function (e, data) {
         var currentFile = data.files[data.index];
         if (data.files.error && currentFile.error) {
+
+            document.getElementById("submit").disabled = true;
             //console.log(currentFile.error);
-            data.context.find(".start").prop('disabled', true);
-            data.context.find('.error').text(currentFile.error);
+            // data.context.find(".start").prop('disabled', true);
+            // data.context.find('.error').text(currentFile.error);
             return;
         }
     });
 
-    /*$(document, '.removeFile').on('show.bs.tooltip', function (e) {
-        e.stopPropagation();
-    }).on('hide.bs.tooltip', function (e) {
-        e.stopPropagation();
-    });*/
-
-    $('#upload').bind('fileuploadadd', function (e, data) {
-        setTimeout(function () {
-            $('.removeFile').tooltip();
-        }, 0);
-        //$('.removeFile').tooltip();
-        //console.log('add');
-    })
-        .bind('fileuploadprogress', function (e, data) {
-        var progress = parseInt(data.loaded / data.total * 100, 10);
-        data.context.find('.progress').css('width', progress + '%');
-        //console.log(progress);
-    })
-        .bind('fileuploadfail', function (e, data) {
-        console.log('fail');
-    }).bind('fileuploadstart', function (e) {
-        console.log('start');
-    })
+    $('#upload#submit').click();
+    // /*$(document, '.removeFile').on('show.bs.tooltip', function (e) {
+    //     e.stopPropagation();
+    // }).on('hide.bs.tooltip', function (e) {
+    //     e.stopPropagation();
+    // });*/
+    //
+    // $('#upload').bind('fileuploadadd', function (e, data) {
+    //     setTimeout(function () {
+    //         $('.removeFile').tooltip();
+    //     }, 0);
+    //     $('.removeFile').tooltip();
+    //     //console.log('add');
+    // })
+    //     .bind('fileuploadprogress', function (e, data) {
+    //     var progress = parseInt(data.loaded / data.total * 100, 10);
+    //     data.context.find('.progress').css('width', progress + '%');
+    //     console.log(progress);
+    // })
+    //     .bind('fileuploadfail', function (e, data) {
+    //     console.log('fail');
+    // }).bind('fileuploadstart', function (e) {
+    //     console.log('start');
+    // })
 
 });

@@ -93,16 +93,16 @@
             </div>
             <div class="modal-body" id="modal-body">
                 <div id="upload">
-                    <form action="." method="POST">
+                    <form action="/upload_xml/" method="POST">
                         {% csrf_token %}
                         <div id="drop">Upload XML<a>Browse</a>
                             <input type="file" name="upl" />
                         </div>
                         <div class="fileupload-buttonbar">
                             <div>
-                                <button type="submit" class="btn btn-success start"> <i class="glyphicon glyphicon-upload"></i><span>Upload</span>
+                                <button type="submit" class="btn btn-success" id="submit"> <i class="glyphicon glyphicon-upload"></i><span>Upload</span>
                                 </button>
-                                <button type="reset" class="btn btn-warning cancel"> <i class="glyphicon glyphicon-upload"></i><span>Clear</span>
+                                <button type="reset" class="btn btn-warning cancel"> <i class="glyphicon glyphicon-ban-circle"></i><span>Clear</span>
                                 </button>
                             </div>
                         </div>
