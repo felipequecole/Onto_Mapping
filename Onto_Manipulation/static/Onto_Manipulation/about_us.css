@@ -1,11 +1,11 @@
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
   .bg-1 {
-      background-color: #1abc9c; /* Green */
+      background-color: #3C3A9A; /* #3C3A9A */
       color: #ffffff;
   }
   .bg-2 {
-      background-color: #474e5d; /* Dark Blue */
+      background-color: #F49E5D; /* Dark Blue */
       color: #ffffff;
   }
   .bg-3 {
@@ -15,20 +15,4 @@
   .bg-4 {
       background-color: #2f2f2f; /* Black Gray */
       color: #fff;
-  }
-  .container-fluid {
-      padding-top: 70px;
-      padding-bottom: 70px;
-  }
-  .navbar {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      border: 0;
-      border-radius: 0;
-      margin-bottom: 0;
-      font-size: 12px;
-      letter-spacing: 5px;
-  }
-  .navbar-nav  li a:hover {
-      color: #1abc9c !important;
   }

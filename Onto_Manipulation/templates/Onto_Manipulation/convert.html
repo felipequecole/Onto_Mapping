@@ -1,10 +1,63 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block onto_converter %} class="active" {% endblock %}
 
+
+
 {% block body %}
-    <form method="POST" actions=".">
 
+    <div class="container-fluid bg-1 text-center">
+        <h3 class="margin">Who we are?</h3>
+        <img src="{% static 'img/felipediva.jpeg' %}" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
+        <h3>We are pirates</h3>
+    <br>
+    </div>
 
-    </form>
+    <div class="container-fluid bg-2 text-center">
+        <h3 class="margin">Contact Us</h3>
+        <p>
+        <h4>Felipe Quecole</h4>
+            <a class="btn btn-default btn-lg" href="https://www.facebook.com/felipequecole?fref=ts" target="_blank" style="background-color:#3b5998; border-color:#3b5998; color:white; padding: 5px"><i class="fa fa-facebook-square" style="color:white; font-size: 200%"></i></a>
+            <a class="btn btn-default btn-lg" href="https://www.facebook.com/felipequecole?fref=ts" target="_blank" style="background-color:#00aced; border-color:#00aced; color:white;padding: 5px"><i class="fa fa-twitter-square" style="color:white; font-size: 200%"></i></a>
+            <a class="btn btn-default btn-lg" href="https://www.facebook.com/felipequecole?fref=ts" target="_blank" style="background-color:#1111; border-color:#1111; color:#000000;padding: 5px"><i class="fa fa-github-square" style="color:#000000 ; font-size: 200%"></i></a>
+        </p>
+        <p>
+            <h4>Pedro Migliatti</h4>
+            <a class="btn btn-default btn-lg" href="https://www.facebook.com/pedro.migliatti?fref=ts" target="_blank" style="background-color:#3b5998; border-color:#3b5998; color:white;padding: 5px"><i class="fa fa-facebook-square" style="color:white; font-size: 200%"></i> </a>
+            <a class="btn btn-default btn-lg" href="https://www.facebook.com/pedro.migliatti?fref=ts" target="_blank" style="background-color:#00aced; border-color:#00aced; color:white;padding: 5px"><i class="fa fa-twitter-square" style="color:white; font-size: 200%"></i></a>
+            <a class="btn btn-default btn-lg" href="https://www.facebook.com/felipequecole?fref=ts" target="_blank" style="background-color:#1111; border-color:#1111; color:#000000;padding: 5px"><i class="fa fa-github-square" style="color:#000000; font-size: 200%"></i></a>
+        </p>
+        <p>
+            <h4>Romão Matines</h4>
+            <a class="btn btn-default btn-lg" href="https://www.facebook.com/romatxa?fref=ts" target="_blank" style="background-color:#3b5998; border-color:#3b5998; color:white;padding: 5px"><i class="fa fa-facebook-square" style="color:white; font-size: 200%"></i> </a>
+            <a class="btn btn-default btn-lg" href="https://www.facebook.com/felipequecole?fref=ts" target="_blank" style="background-color:#00aced; border-color:#00aced; color:white;padding: 5px"><i class="fa fa-twitter-square" style="color:white; font-size: 200%"></i></a>
+            <a class="btn btn-default btn-lg" href="https://www.facebook.com/felipequecole?fref=ts" target="_blank" style="background-color:#1111; border-color:#1111; color:#000000;padding: 5px"><i class="fa fa-github-square" style="color:#000000; font-size: 200%"></i></a>
+        </p>
+    <br>
+    <br>
+    </div>
+
+    <div class="container-fluid bg-3 text-center">
+      <h3 class="margin">Where To Find Me?</h3><br>
+      <div class="row">
+          <a href="http://www2.ufscar.br/" style="color:black;">
+            <div class="col-sm-4">
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <img src="{% static 'img/logoufscar.gif' %}" class="img-responsive margin" style="width:100%" alt="Image">
+                </div>
+          </a>
+          <a href="http://www.dc.ufscar.br/" style="color:black;">
+            <div class="col-sm-4">
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <img src="{% static 'img/logodc.jpg' %}" class="img-responsive margin" style="width:100%" alt="Image">
+                </div>
+          </a>
+          <a href="http://www2.ufscar.br/" style="color:black;">
+            <div class="col-sm-4">
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <img src="{% static 'img/felipediva.jpeg' %}" class="img-responsive margin" style="width:100%" alt="Image">
+                </div>
+          </a>
+      </div>
+    </div>
 {% endblock body %}
