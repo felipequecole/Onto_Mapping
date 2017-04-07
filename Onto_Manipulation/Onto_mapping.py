@@ -306,5 +306,3 @@ def add_category(category):
 
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)
-
-

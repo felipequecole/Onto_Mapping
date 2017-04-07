@@ -93,11 +93,11 @@
             </div>
             <div class="modal-body" id="modal-body">
                 <div id="upload">
-                    <form action="/upload_xml/" method="POST">
+                    <form action="/upload_xml/" enctype="multipart/form-data" method="POST" id="myform">
                         {% csrf_token %}
-                        <div id="drop">Upload XML<a>Browse</a>
-                            <input type="file" name="upl" />
-                        </div>
+{#                            <div id="drop">Upload XML<a>Browse</a>#}
+                            <input type="file" name="xmlfile" id="xmlfile" />
+{#                        </div>#}
                         <div class="fileupload-buttonbar">
                             <div>
                                 <button type="submit" class="btn btn-success" id="submit"> <i class="glyphicon glyphicon-upload"></i><span>Upload</span>
