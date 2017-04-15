@@ -5,7 +5,7 @@ from xlrd import open_workbook, XL_CELL_TEXT
 import xlwt
 from collections import OrderedDict
 import os
-
+import zipfile
 
 def create_xml(rel_path='static/Onto_Manipulation/data/relations.xls', cat_path='static/Onto_Manipulation/data/categories.xls'):
     pwd = os.path.dirname(__file__)
@@ -39,6 +39,7 @@ def create_xml(rel_path='static/Onto_Manipulation/data/relations.xls', cat_path=
             value = sheet.cell(j, i).value
             if (isinstance(value, int) or isinstance(value, float)):
                 # converts all data to string
+                value = int(value)
                 value = str(value)
             else:
                 # using the right encoding
@@ -55,12 +56,13 @@ def create_xml(rel_path='static/Onto_Manipulation/data/relations.xls', cat_path=
             value = sheetcat.cell(j, i).value
             if (isinstance(value, int) or isinstance(value, float)):
                 # converts all data to string
+                value = int(value)
                 value = str(value)
             else:
                 value.encode('utf8')
             child.text = value
 
-    # creates the root element of the xml tree
+# creates the root element of the xml tree
     root_tree = etree.ElementTree(root)
 
     # saves the output file
@@ -158,11 +160,11 @@ def linker(filename='static/Onto_Manipulation/data/ontology.xml'):  # create the
     tree.write(outFile)
 
 
-def create_xls(input_file='static/Onto_Manipulation/data/ontology_linked.xml'):
+def create_xls(input_file='static/Onto_Manipulation/data/ontology.xml'):
     pwd = os.path.dirname(__file__)
     input_file = os.path.join(pwd, input_file)
     # open the xml file
-    linked_xml = open(input_file, 'r')
+    linked_xml = open(input_file, 'rb')
 
     # create the workbooks
     relations_file = xlwt.Workbook()
@@ -188,16 +190,66 @@ def create_xls(input_file='static/Onto_Manipulation/data/ontology_linked.xml'):
     relr_index = 1
     relc_index = -1
     for relation in ontology['Ontology']['Relations']['Relation']:  # walks through the rows
-        for item in relation.itervalues():  # walks through the columns
-            if not isinstance(item, OrderedDict):  # if it's not a reference
-                if relc_index != -1:
-                    relations_xls.write(relr_index, relc_index, item)
-                relc_index += 1
-        relr_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['relationName'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['humanFormat'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['populate'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['visible'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['generalizations'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['domain'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['range'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['domainWithinRange'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['rangeWithinDomain'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['antireflexive'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['antisymmetric'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['mutexExceptions'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['knownNegatives'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['inverse'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['seedInstances'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['seedExtractionPatterns'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['nrOfValues'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['nrOfInverseValues'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['requiredForDomain'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['requiredForRange'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['queryString'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['editDate'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['author'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['curator'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['description'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['freebaseID'])
+        relc_index += 1
+        relations_xls.write(relr_index, relc_index + 1, relation['comment'])
+
         relc_index = -1
+        relr_index += 1
 
     # creating the output file
-    out_xls = open('static/Onto_Manipulation/data/made_relations.xls', 'w')
+    outputrel_xls = os.path.join(pwd, 'static/Onto_Manipulation/data/made_relations.xls')
+    out_xls = open(outputrel_xls, 'wb')
     # saving the relations.xls file
     relations_file.save(out_xls)
     out_xls.close()
@@ -215,20 +267,52 @@ def create_xls(input_file='static/Onto_Manipulation/data/ontology_linked.xml'):
     # fill the xls file
 
     catr_index = 1
-    catc_index = -1
+    catc_index = 0
     for category in ontology['Ontology']['Categories']['Category']:  # walks through the rows
-        for item in category.itervalues():  # walks through the columns
-            if not isinstance(item, OrderedDict):  # if it's not a reference
-                if catc_index != -1:
-                    categories_xls.write(catr_index, catc_index, item)
-                catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['categoryName'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['englishName'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['humanFormat'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['populate'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['visible'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['generalizations'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['mutexExceptions'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['knownNegatives'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['instanceType'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['seedInstances'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['seedExtractionPatterns'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['conceptSynonyms'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['queryString'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['editDate'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['author'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['curator'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['description'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['freebaseID'])
+        catc_index += 1
+        categories_xls.write(catr_index, catc_index, category['comment'])
+        catc_index = 0
         catr_index += 1
-        catc_index = -1
 
     # creating the output file
     pwd = os.path.dirname(__file__)
-    out_path = os.path.join(pwd, 'static/Onto_Manipulation/data/made_categories.xls')
-    out_xls = open(out_path, 'w')
+    outputcat_xls = os.path.join(pwd, 'static/Onto_Manipulation/data/made_categories.xls')
+    out_xls = open(outputcat_xls, 'wb')
     # saving the relations.xls file
     categories_file.save(out_xls)
     out_xls.close()
@@ -239,7 +323,6 @@ def return_dict(filename='static/Onto_Manipulation/data/ontology.xml'):
     print (filename)
     xml = open(filename, 'rb')
     ontology = xmltodict.parse(xml)
-    print(ontology['Ontology']['Relations']['Relation'])
     return ontology
 
 def add_relation(relation):
@@ -306,3 +389,11 @@ def add_category(category):
 
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)
+
+def create_zip(filename_rel='static/Onto_Manipulation/data/made_relations.xls', filename_cat='static/Onto_Manipulation/data/made_categories.xls'):
+    pwd = os.path.dirname(__file__)
+    zf = zipfile.ZipFile(os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.zip'), "w")
+    zf.write(os.path.join(pwd, filename_rel), arcname='made_relations.xls')
+    zf.write(os.path.join(pwd, filename_cat), arcname='made_categories.xls')
+    print("criou")
+    zf.close()

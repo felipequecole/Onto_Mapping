@@ -72,13 +72,18 @@ def download_XML(request):
 
 
 def download_XLS(request):
+    Onto_mapping.create_xls()
+    Onto_mapping.create_zip()
     pwd = os.path.dirname(__file__)
-    file_path = os.path.join(pwd, 'static/Onto_Manipulation/data/relations.xls')
+    file_path = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.zip')
+
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type="application/xls")
+            response = HttpResponse(fh.read(), content_type="application/zip")
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
             return response
+
+
 
     return render(request, 'Onto_Manipulation/download.html', {})
 

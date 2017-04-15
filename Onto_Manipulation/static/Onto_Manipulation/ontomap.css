@@ -33,6 +33,21 @@ body {
     color:white;
 }
 
+a.expand_link{
+    color: white;
+}
+
+.btn-floating {
+    margin-top: 290px;
+    margin-left: 800px;
+    position: fixed;
+}
+
+.panel-gambi {
+    margin-top: -50px;
+}
+
+
 footer{
     margin: 0 auto;
     border-top: solid #000000 1px;
