@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from Onto_Manipulation import Onto_mapping
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -6,39 +6,48 @@ import xmltodict
 import os
 
 
+working_ontology = 'ontology.xml'
 
 def index(request):
-    dict = Onto_mapping.return_dict()
-    return render(request, 'home.html', dict)
+    global working_ontology
+    dict = Onto_mapping.return_dict(working_ontology)
+    list = Onto_mapping.list_ontologies()
+    context = {'ontology': dict, 'list': list}
+    return render(request, 'home.html', context)
 
 def relation(request):
-    dict = Onto_mapping.return_dict()
+    global working_ontology
+    list = Onto_mapping.list_ontologies()
+    dict = Onto_mapping.return_dict(working_ontology)
+    dict['list'] = list
     return render(request, 'Onto_Manipulation/home_rel.html', dict)
 
 def category(request):
-    dict = Onto_mapping.return_dict()
+    global working_ontology
+    list = Onto_mapping.list_ontologies()
+    dict = Onto_mapping.return_dict(working_ontology)
+    dict['list'] = list
     return render(request, 'Onto_Manipulation/home_cat.html', dict)
-
-def edit(request):
-    return render(request, 'Onto_Manipulation/edit.html', {})
 
 @csrf_exempt
 def edit_cat(request):
+    global working_ontology
     if request.method == 'POST':
         form = dict(request.POST)
-        Onto_mapping.add_category(form)
+        Onto_mapping.add_category(form, working_ontology)
         return render(request, 'Onto_Manipulation/sucess.html')
     return render(request, 'Onto_Manipulation/edit_cat.html', {})
 
 @csrf_exempt
 def edit_rel(request, id=""):
+    global working_ontology
     relationDic = {'@id': '', 'relationName': '', 'humanFormat': '', 'populate': '', 'visible': '',
                    'generalizations': '', 'domain': '', 'range': '', 'domainWithinRange': '', 'rangeWithinDomain': '',
                    'antireflexive': '', 'antisymmetric': '', 'mutexExceptions': '', 'knownNegatives': '', 'inverse': '',
                    'seedInstances': '', 'seedExtractionPatterns': '', 'nrOfValues': '', 'nrOfInverseValues': '',
                    'requiredForDomain': '', 'requiredForRange': '', 'queryString': '', 'editDate': '', 'author': '',
                    'curator': '', 'description': '', 'freebaseID': '', 'comment': ''}
-    ont = Onto_mapping.return_dict()
+    ont = Onto_mapping.return_dict(working_ontology)
     for relation in ont['Ontology']['Relations']['Relation']:
         if (relation['relationName'] == id):
             relationDic = relation
@@ -46,18 +55,20 @@ def edit_rel(request, id=""):
     if request.method == 'POST':
         form = dict(request.POST)
         if(id == 'new'):
-            Onto_mapping.add_relation(form)
+            Onto_mapping.add_relation(form, working_ontology)
             return render(request, 'Onto_Manipulation/sucess.html', {})
         else:
-            Onto_mapping.edit_relation(form, relationDic['@id'])
+            Onto_mapping.edit_relation(form, relationDic['@id'], working_ontology)
             return render(request, 'Onto_Manipulation/sucess.html')
 
         relationDic = form
 
-    return render(request, 'Onto_Manipulation/edit_rel.html', {'relation': relationDic})
+    list = Onto_mapping.list_ontologies()
+    return render(request, 'Onto_Manipulation/edit_rel.html', {'relation': relationDic, 'list': list})
 
 def convert(request):
-    return render(request, 'Onto_Manipulation/convert.html',{})
+    list = Onto_mapping.list_ontologies()
+    return render(request, 'Onto_Manipulation/convert.html', {'list': list})
 
 def download_XML(request):
     pwd = os.path.dirname(__file__)
@@ -100,6 +111,18 @@ def upload_XML(request):
         xmltodict.unparse(ontology, output=xml_target)
 
 
-    return render(request, 'Onto_Manipulation/convert.html', {})
+    return render(request, 'Onto_Manipulation/convert.html', {'list':Onto_mapping.list_ontologies()})
+
+def select(request, id=""):
+    if (id == 'default'):
+        global working_ontology
+        working_ontology = 'ontology.xml'
+        print(working_ontology)
+    else:
+       global working_ontology
+       working_ontology= id+'.xml'
+       print(working_ontology)
+
+    return redirect('/relation')
 
 # Create your views here.

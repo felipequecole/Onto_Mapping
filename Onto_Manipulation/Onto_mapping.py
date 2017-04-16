@@ -7,8 +7,9 @@ from collections import OrderedDict
 import os
 import zipfile
 
-def create_xml(rel_path='static/Onto_Manipulation/data/relations.xls', cat_path='static/Onto_Manipulation/data/categories.xls'):
+def create_xml(rel_path='relations.xls', cat_path='categories.xls'):
     pwd = os.path.dirname(__file__)
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
     rel_path = os.path.join(pwd, rel_path)
 
     pwd = os.path.dirname(__file__)
@@ -72,9 +73,10 @@ def create_xml(rel_path='static/Onto_Manipulation/data/relations.xls', cat_path=
     root_tree.write(outFile)
 
 
-def linker(filename='static/Onto_Manipulation/data/ontology.xml'):  # create the references in the xml file
+def linker(filename='ontology.xml'):  # create the references in the xml file
 
     pwd = os.path.dirname(__file__)
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
     filename = os.path.join(pwd, filename)
 
     # Open the xml file
@@ -160,8 +162,9 @@ def linker(filename='static/Onto_Manipulation/data/ontology.xml'):  # create the
     tree.write(outFile)
 
 
-def create_xls(input_file='static/Onto_Manipulation/data/ontology.xml'):
+def create_xls(input_file='ontology.xml'):
     pwd = os.path.dirname(__file__)
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
     input_file = os.path.join(pwd, input_file)
     # open the xml file
     linked_xml = open(input_file, 'rb')
@@ -317,17 +320,18 @@ def create_xls(input_file='static/Onto_Manipulation/data/ontology.xml'):
     categories_file.save(out_xls)
     out_xls.close()
 
-def return_dict(filename='static/Onto_Manipulation/data/ontology.xml'):
+def return_dict(filename='ontology.xml'):
     pwd = os.path.dirname(__file__)
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
     filename = os.path.join(pwd, filename)
-    print (filename)
     xml = open(filename, 'rb')
     ontology = xmltodict.parse(xml)
     return ontology
 
-def add_relation(relation):
+def add_relation(relation, ontology='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
+    pwd = os.path.join('static/Onto_Manipulation/data/')
+    filename = os.path.join(pwd, ontology)
     xml_origin = open(filename, 'rb')
 
     ontology = xmltodict.parse(xml_origin)
@@ -348,9 +352,10 @@ def add_relation(relation):
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)
 
-def edit_relation(relation, relID):
+def edit_relation(relation, relID, ontology='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    filename = os.path.join(pwd, ontology)
     xml_origin = open(filename, 'rb')
 
     ontology = xmltodict.parse(xml_origin)
@@ -367,9 +372,10 @@ def edit_relation(relation, relID):
 
 
 
-def add_category(category):
+def add_category(category, ontology='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    filename = os.path.join(pwd, ontology)
     xml_origin = open(filename, 'rb')
 
     ontology = xmltodict.parse(xml_origin)
@@ -390,10 +396,21 @@ def add_category(category):
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)
 
-def create_zip(filename_rel='static/Onto_Manipulation/data/made_relations.xls', filename_cat='static/Onto_Manipulation/data/made_categories.xls'):
+def create_zip(filename_rel='made_relations.xls', filename_cat='made_categories.xls'):
     pwd = os.path.dirname(__file__)
-    zf = zipfile.ZipFile(os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.zip'), "w")
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    zf = zipfile.ZipFile(os.path.join(pwd, 'ontology.zip'), "w")
     zf.write(os.path.join(pwd, filename_rel), arcname='made_relations.xls')
     zf.write(os.path.join(pwd, filename_cat), arcname='made_categories.xls')
-    print("criou")
     zf.close()
+
+def list_ontologies():
+    pwd = os.path.dirname(__file__)
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    ontologies = []
+    for root, dirs, files in os.walk(pwd):
+        for file in files:
+            test = file.split('.')
+            if test[-1] == 'xml':
+                ontologies.append(test[-2])
+    return ontologies

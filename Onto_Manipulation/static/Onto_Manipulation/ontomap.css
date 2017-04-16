@@ -38,8 +38,8 @@ a.expand_link{
 }
 
 .btn-floating {
-    margin-top: 290px;
-    margin-left: 800px;
+    margin-top: -10px;
+    margin-left: 760px;
     position: fixed;
 }
 
@@ -50,8 +50,13 @@ a.expand_link{
 
 footer{
     margin: 0 auto;
+    bottom: 0;
     border-top: solid #000000 1px;
     border-top-style: inset;
     width: 300px;
 
+}
+
+.clickable {
+    cursor: pointer;
 }
