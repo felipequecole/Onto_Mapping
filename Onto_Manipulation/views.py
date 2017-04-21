@@ -30,13 +30,31 @@ def category(request):
     return render(request, 'Onto_Manipulation/home_cat.html', dict)
 
 @csrf_exempt
-def edit_cat(request):
+def edit_cat(request, id=""):
     global working_ontology
+    categoryDic = {'@id': '', 'categoryName': '', 'englishName': '', 'humanFormat': '', 'populate': '',
+                   'visible': '', 'domain': '', 'range': '', 'domainWithinRange': '', 'rangeWithinDomain': '',
+                   'antireflexive': '', 'generalizations': '', 'mutexExceptions': '', 'knownNegatives': '', 'instanceType': '',
+                   'seedInstances': '', 'seedExtractionPatterns': '', 'conceptSynonyms': '', 'queryString': '',
+                   'editDate': '', 'author': '', 'curator': '', 'description': '', 'freebaseID': '', 'comment': ''}
+    ont = Onto_mapping.return_dict(working_ontology)
+    for category in ont['Ontology']['Categories']['Category']:
+        if (category['categoryName'] == id):
+            categoryDic = category
+
     if request.method == 'POST':
         form = dict(request.POST)
-        Onto_mapping.add_category(form, working_ontology)
-        return render(request, 'Onto_Manipulation/sucess.html')
-    return render(request, 'Onto_Manipulation/edit_cat.html', {})
+        if (id == 'new'):
+            Onto_mapping.add_category(form, working_ontology)
+            return render(request, 'Onto_Manipulation/sucess.html', {})
+        else:
+            Onto_mapping.edit_category(form, categoryDic['@id'], working_ontology)
+            return render(request, 'Onto_Manipulation/sucess.html')
+
+        categoryDic = form
+
+    list = Onto_mapping.list_ontologies()
+    return render(request, 'Onto_Manipulation/edit_cat.html', {'category': categoryDic, 'list': list})
 
 @csrf_exempt
 def edit_rel(request, id=""):

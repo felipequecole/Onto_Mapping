@@ -370,6 +370,24 @@ def edit_relation(relation, relID, ontology='ontology.xml'):
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)
 
+def edit_category(category, catID, ontology='ontology.xml'):
+    pwd = os.path.dirname(__file__)
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    filename = os.path.join(pwd, ontology)
+    xml_origin = open(filename, 'rb')
+
+    ontology = xmltodict.parse(xml_origin)
+
+    xml_origin.close()
+
+    for n, rel in enumerate(ontology['Ontology']['Categories']['Category']):
+        if(catID==rel['@id']):
+            ontology['Ontology']['Categories']['Category'][n] = category
+            ontology['Ontology']['Categories']['Category'][n]['@id'] = catID
+
+    xml_target = open(filename, 'wb')
+    xmltodict.unparse(ontology, output=xml_target)
+
 
 
 def add_category(category, ontology='ontology.xml'):
