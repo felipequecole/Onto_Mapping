@@ -4,15 +4,12 @@
 {% block category %}class="active"{% endblock %}
 
 {% block edit_content %}
-    <div class="container-fluid">
-   <a href="/edit_cat/new" class="btn btn-default btn-lg btn-danger btn-floating"  role="button">
-        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <strong>New</strong>
-    </a>
-    </div>
+        <a href="/edit_cat/new" class="btn btn-default btn-lg btn-danger"  role="button">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <strong>New</strong>
+        </a>
 
     <br>
     <br>
-<div class="panel-gambi">
     {% for category in Ontology.Categories.Category %}
         <div class="panel panel-primary">
         <a class="expand_link" href="#content{{ category.categoryName }}" data-toggle="collapse">
@@ -38,8 +35,6 @@
         </div>
 
     {% endfor %}
-
-</div>
 
 
 {% endblock %}
