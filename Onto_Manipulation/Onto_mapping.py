@@ -251,7 +251,9 @@ def create_xls(input_file='ontology.xml'):
         relr_index += 1
 
     # creating the output file
-    outputrel_xls = os.path.join(pwd, 'static/Onto_Manipulation/data/made_relations.xls')
+    pwd = os.path.dirname(__file__)
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data')
+    outputrel_xls = os.path.join(pwd, 'made_relations.xls')
     out_xls = open(outputrel_xls, 'wb')
     # saving the relations.xls file
     relations_file.save(out_xls)
@@ -362,10 +364,21 @@ def edit_relation(relation, relID, ontology='ontology.xml'):
 
     xml_origin.close()
 
+    relation['@id'] = relID
+    attrib_order = ['@id', 'relationName', 'humanFormat', 'populate', 'visible', 'generalizations', 'domain', 'range',
+                    'domainWithinRange',
+                    'rangeWithinDomain', 'antireflexive', 'antisymmetric', 'mutexExceptions', 'knownNegatives',
+                    'inverse',
+                    'seedInstances', 'seedExtractionPatterns', 'nrOfValues', 'nrOfInverseValues', 'requiredForDomain',
+                    'requiredForRange', 'queryString', 'editDate', 'author', 'curator', 'description', 'freebaseID',
+                    'comment', 'csrfmiddlewaretoken']
+    relation = OrderedDict((k, relation[k]) for k in attrib_order)
+    del relation['csrfmiddlewaretoken']
+
     for n, rel in enumerate(ontology['Ontology']['Relations']['Relation']):
         if(relID==rel['@id']):
             ontology['Ontology']['Relations']['Relation'][n] = relation
-            ontology['Ontology']['Relations']['Relation'][n]['@id'] = relID
+
 
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)
@@ -380,10 +393,17 @@ def edit_category(category, catID, ontology='ontology.xml'):
 
     xml_origin.close()
 
+    category['@id'] = catID
+    attrib_order = ['@id', 'categoryName', 'englishName', 'humanFormat', 'populate', 'visible', 'generalizations',
+                    'mutexExceptions', 'knownNegatives', 'instanceType', 'seedInstances', 'seedExtractionPatterns',
+                    'conceptSynonyms', 'queryString', 'editDate', 'author', 'curator', 'description', 'freebaseID',
+                    'comment']
+    category = OrderedDict(category)
+    category = OrderedDict((k, category[k]) for k in attrib_order)
+
     for n, rel in enumerate(ontology['Ontology']['Categories']['Category']):
         if(catID==rel['@id']):
             ontology['Ontology']['Categories']['Category'][n] = category
-            ontology['Ontology']['Categories']['Category'][n]['@id'] = catID
 
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)

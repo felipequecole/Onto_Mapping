@@ -60,3 +60,13 @@ footer{
 .clickable {
     cursor: pointer;
 }
+
+.image-center {
+    display: block;
+    margin: auto;
+
+}
+
+select{
+    width = 100px;
+}

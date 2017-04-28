@@ -46,7 +46,7 @@ def edit_cat(request, id=""):
         form = dict(request.POST)
         if (id == 'new'):
             Onto_mapping.add_category(form, working_ontology)
-            return render(request, 'Onto_Manipulation/sucess.html', {})
+            return render(request, 'Onto_Manipulation/sucess.html', {'new': '1'})
         else:
             Onto_mapping.edit_category(form, categoryDic['@id'], working_ontology)
             return render(request, 'Onto_Manipulation/sucess.html')
@@ -74,7 +74,7 @@ def edit_rel(request, id=""):
         form = dict(request.POST)
         if(id == 'new'):
             Onto_mapping.add_relation(form, working_ontology)
-            return render(request, 'Onto_Manipulation/sucess.html', {})
+            return render(request, 'Onto_Manipulation/sucess.html', {'new': '1'})
         else:
             Onto_mapping.edit_relation(form, relationDic['@id'], working_ontology)
             return render(request, 'Onto_Manipulation/sucess.html')
@@ -132,12 +132,11 @@ def upload_XML(request):
     return render(request, 'Onto_Manipulation/convert.html', {'list':Onto_mapping.list_ontologies()})
 
 def select(request, id=""):
+    global working_ontology
     if (id == 'default'):
-        global working_ontology
         working_ontology = 'ontology.xml'
         print(working_ontology)
     else:
-       global working_ontology
        working_ontology= id+'.xml'
        print(working_ontology)
 

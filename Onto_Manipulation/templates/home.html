@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block home_onto %} class="active" {% endblock %}
 {% block content %}
 
 
 {% block home_content %}{% endblock %}
 
-
+<img class="image-center" align="center" src={% static 'img/home.gif' %}>
 
 {% endblock %}
