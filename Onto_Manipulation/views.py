@@ -123,13 +123,23 @@ def download(request):
 def upload_XML(request):
     if request.method=='POST' and request.FILES:
         pwd = os.path.dirname(__file__)
-        filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
+        filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology_edited.xml')
         xml_target = open(filename, 'wb')
         ontology = xmltodict.parse(request.FILES['xmlfile'])
         xmltodict.unparse(ontology, output=xml_target)
 
 
     return render(request, 'Onto_Manipulation/convert.html', {'list':Onto_mapping.list_ontologies()})
+
+def upload_XLS(request):
+    if request.method == 'POST' and request.FILES:
+        pwd = os.path.dirname(__file__)
+        filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology_edited.xml')
+        xml_target = open(filename, 'wb')
+        ontology = xmltodict.parse(request.FILES['xmlfile'])
+        xmltodict.unparse(ontology, output=xml_target)
+
+    return render(request, 'Onto_Manipulation/edit.html', {'list':Onto_mapping.list_ontologies()})
 
 def select(request, id=""):
     global working_ontology

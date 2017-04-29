@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^download_xml/$', views.download_XML, name='download'),
     url(r'^download_xls/$', views.download_XLS, name='download'),
     url(r'^upload_xml/$', views.upload_XML, name='upload'),
+    url(r'^upload_xls/$', views.upload_XLS, name='upload'),
 ]

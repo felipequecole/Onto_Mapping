@@ -58,6 +58,7 @@
                             <li><a href="/download_xml">Download XML</a></li>
                             <li><a href="/download_xls">Download XLS</a></li>
                             <li><a href="/upload_xml" id="openUpload">Upload XML</a></li>
+                            <li><a href="/upload_xls" id="openUploadXLS">Upload XLS</a></li>
                         </ul>
                     </li>
                     <li {% block onto_converter %}{% endblock %}><a href="/convert">About Us</a></li>
@@ -108,13 +109,9 @@
                                 </button>
                             </div>
                         </div>
-                        <!-- The table listing the files available for upload/download -->
-                        <!--<table class="table table-striped">
-                            <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
-                        </table>-->
                         <ol class="files upload-files-list"></ol>
-                    <!--files go here-->
                     </form>
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -123,6 +120,46 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="uploadModalXLS" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title" id="myModalLabel">Upload XLS</h4>
+
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div id="upload">
+                    <form action="/upload_xls/" enctype="multipart/form-data" method="POST" id="myform">
+                        {% csrf_token %}
+                            <label>Category</label>
+                            <input type="file" name="xlscategory" id="xlscategory" required="true" />
+                            <br>
+                            <label>Relation</label>
+                            <input type="file" name="xlsrelation" id="xlsrelation" />
+                            <br>
+                        <div class="fileupload-buttonbar">
+                            <div>
+                                <button type="submit" class="btn btn-success" id="submit"> <i class="glyphicon glyphicon-upload"></i><span>Upload</span>
+                                </button>
+                                <button type="reset" class="btn btn-warning cancel"> <i class="glyphicon glyphicon-ban-circle"></i><span>Clear</span>
+                                </button>
+                            </div>
+                        </div>
+                        <ol class="files upload-files-list"></ol>
+                    </form>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="editModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
