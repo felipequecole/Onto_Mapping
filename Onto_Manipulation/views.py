@@ -3,6 +3,10 @@ from Onto_Manipulation import Onto_mapping
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import xmltodict
+from xlrd import open_workbook
+
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 import os
 
 
@@ -133,11 +137,20 @@ def upload_XML(request):
 
 def upload_XLS(request):
     if request.method == 'POST' and request.FILES:
-        pwd = os.path.dirname(__file__)
-        filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology_edited.xml')
-        xml_target = open(filename, 'wb')
-        ontology = xmltodict.parse(request.FILES['xmlfile'])
-        xmltodict.unparse(ontology, output=xml_target)
+        if request.FILES['xlsrelation']:
+            rel = request.FILES['xlsrelation']
+            cat = request.FILES['xlscategory']
+            pwd = os.path.dirname(__file__)
+            filerel = os.path.join(pwd, 'static/Onto_Manipulation/data/relations.xls')
+            filecat = os.path.join(pwd, 'static/Onto_Manipulation/data/categories.xls')
+            with open(filerel, 'wb+') as destination:
+                for chunk in rel.chunks():
+                    destination.write(chunk)
+
+            with open(filecat, 'wb+') as destination:
+                for chunk in cat.chunks():
+                    destination.write(chunk)
+            Onto_mapping.create_xml('relations.xls', 'categories.xls')
 
     return render(request, 'Onto_Manipulation/edit.html', {'list':Onto_mapping.list_ontologies()})
 

@@ -13,6 +13,7 @@ def create_xml(rel_path='relations.xls', cat_path='categories.xls'):
     rel_path = os.path.join(pwd, rel_path)
 
     pwd = os.path.dirname(__file__)
+    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
     cat_path = os.path.join(pwd, cat_path)
 
     # Opens the xls file
