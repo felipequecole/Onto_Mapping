@@ -7,7 +7,7 @@ from collections import OrderedDict
 import os
 import zipfile
 
-def create_xml(rel_path='relations.xls', cat_path='categories.xls'):
+def create_xml(rel_path='relations.xls', cat_path='categories.xls', out_file='ontology.xml'):
     pwd = os.path.dirname(__file__)
     pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
     rel_path = os.path.join(pwd, rel_path)
@@ -69,8 +69,9 @@ def create_xml(rel_path='relations.xls', cat_path='categories.xls'):
 
     # saves the output file
     pwd = os.path.dirname(__file__)
-    out_path = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
-    outFile = open(out_path, 'w')
+    out_path = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    out_path = os.path.join(out_path, out_file)
+    outFile = open(out_path, 'wb')
     root_tree.write(outFile)
 
 
@@ -452,4 +453,8 @@ def list_ontologies():
             test = file.split('.')
             if test[-1] == 'xml':
                 ontologies.append(test[-2])
+    ontologies.sort()
+    if ('ontology' in ontologies):
+        ontologies.remove('ontology')
+        ontologies.append('ontology')
     return ontologies

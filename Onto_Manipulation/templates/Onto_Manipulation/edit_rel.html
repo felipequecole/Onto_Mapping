@@ -13,20 +13,20 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Relation Name</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.relationName }}" id="relationName" name="relationName">
+                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.relationName }}" id="relationName" name="relationName">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Human Format</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.humanFormat }}" id="humanFormat" name="humanFormat">
+                    <input class="form-control" type="text" {% if new  != '1' %} disabled {% endif %} value="{{ ontology.relation.humanFormat }}" id="humanFormat" name="humanFormat">
                 </div>
             </div>
-            {% if relation.new == '1' %}
+            {% if new == '1' %}
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Visible</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
-                    {% if relation.visible == '1' %}
+                    {% if ontology.relation.visible == '1' %}
                         <label class="btn btn-primary active">
                             <input type="radio" name="visible" id="visible"  value="1" autocomplete="off" checked> Yes
                         </label>
@@ -47,16 +47,16 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Populate</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
-                    {% if relation.populate == '1' %}
+                    {% if ontology.relation.populate == '1' %}
                         <label class="btn btn-primary active">
                             <input type="radio" name="populate"  id="populate" value="1" autocomplete="off" checked> Yes
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="populate" {% if relation.new != '1' %} disabled {% endif %} id="populate" value = "0" autocomplete="off"> No
+                            <input type="radio" name="populate" {% if new != '1' %} disabled {% endif %} id="populate" value = "0" autocomplete="off"> No
                         </label>
                         {% else %}
                              <label class="btn btn-primary active">
-                            <input type="radio" name="populate" {% if relation.new != '1' %} disabled {% endif %} id="populate" value="1" autocomplete="off" > Yes
+                            <input type="radio" name="populate" {% if new != '1' %} disabled {% endif %} id="populate" value="1" autocomplete="off" > Yes
                             </label>
                             <label class="btn btn-primary">
                                 <input type="radio" name="populate"  id="populate" value = "0" autocomplete="off" checked> No
@@ -69,26 +69,42 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Generalizations</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.generalizations }}" id="generalizations" name="generalizations">
+                    <select  class="form-control " id="generalizations" name="generalizations">
+                    {% for relation in ontology.rel %}
+                        <option value="{{ relation.relationName }}">{{ relation.relationName }}</option>
+                    {% endfor %}
+              </select>
                 </div>
             </div>
+        {% if new == '1' %}
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Domain</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.domain }}" id="domain" name="domain">
+                    <select  class="form-control " id="domain" name="domain">
+                    {% for category in ontology.categories %}
+                        <option value="{{ category.categoryName }}">{{ category.categoryName }}</option>
+                    {% endfor %}
+              </select>
+              </label>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Range</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.range }}" id="range" name="range">
+                    <select  class="form-control" data-show-subtext="true" data-live-search="true" title="Select Range" id="range" name="range">
+                    {% for category in ontology.categories %}
+                        <option value="{{ category.categoryName }}" data-token="{{ category.humanFormat }}">{{ category.categoryName }}</option>
+                    {% endfor %}
+              </select>
+              </label>
                 </div>
             </div>
-        {% if relation.new == '1' %}
+
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Domain Within Range</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
-                    {% if relation.domainWithinRange == '1' %}
+                    {% if ontology.relation.domainWithinRange == '1' %}
                         <label class="btn btn-primary active">
                             <input type="radio" name="domainWithinRange" id="domainWithinRange" value="1" autocomplete="off" checked> Yes
                         </label>
@@ -108,7 +124,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Range Within Domain</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
-                    {% if relation.rangeWithinDomain == '1' %}
+                    {% if ontology.relation.rangeWithinDomain == '1' %}
                         <label class="btn btn-primary active">
                             <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value="1" autocomplete="off" checked> Yes
                         </label>
@@ -128,7 +144,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Antireflexive</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
-                    {% if relation.antireflexive == '1' %}
+                    {% if ontology.relation.antireflexive == '1' %}
                         <label class="btn btn-primary active">
                             <input type="radio" name="antireflexive" id="antireflexive" value="1" autocomplete="off" checked> Yes
                         </label>
@@ -148,7 +164,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Antisymmetric</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
-                    {% if relation.antisymmetric == '1' %}
+                    {% if ontology.relation.antisymmetric == '1' %}
                         <label class="btn btn-primary active">
                             <input type="radio" name="antisymmetric" id="antisymmetric" value="1" autocomplete="off" checked> Yes
                         </label>
@@ -169,50 +185,50 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Mutex Exception</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.mutexExceptions }}" id="mutexExceptions" name="mutexExceptions">
+                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.mutexExceptions }}" id="mutexExceptions" name="mutexExceptions">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Known Negatives</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.knownNegatives }}" id="knownNegatives" name="knownNegatives">
+                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.knownNegatives }}" id="knownNegatives" name="knownNegatives">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Inverse</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.inverse }}" id="inverse" name="inverse">
+                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.inverse }}" id="inverse" name="inverse">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Seed Instances</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="{{ relation.seedInstances }}" id="seedInstances" name="seedInstances">
+                    <input class="form-control" type="text" value="{{ ontology.relation.seedInstances }}" id="seedInstances" name="seedInstances">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Seed Extraction Patterns</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="{{ relation.seedExtractionPatterns }}" id="seedExtractionPatterns" name="seedExtractionPatterns">
+                    <input class="form-control" type="text" value="{{ ontology.relation.seedExtractionPatterns }}" id="seedExtractionPatterns" name="seedExtractionPatterns">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Number of Values</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.nrOfValues }}" id="nrOfValues" name="nrOfValues">
+                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.nrOfValues }}" id="nrOfValues" name="nrOfValues">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Number of Inverse Values</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.nrOfInverseValues }}" id="nrOfInverseValues" name="nrOfInverseValues">
+                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.nrOfInverseValues }}" id="nrOfInverseValues" name="nrOfInverseValues">
                 </div>
             </div>
-        {% if relation.new == '1' %}
+        {% if new == '1' %}
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Required for Domain</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
-                    {% if relation.requiredForDomain == 'TRUE' %}
+                    {% if ontology.relation.requiredForDomain == 'TRUE' %}
                         <label class="btn btn-primary active">
                             <input type="radio" name="requiredForDomain" id="requiredForDomain" value="TRUE" autocomplete="off" checked> Yes
                         </label>
@@ -232,7 +248,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Required for Range</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
-                    {% if relation.requiredForRange == 'TRUE' %}
+                    {% if ontology.relation.requiredForRange == 'TRUE' %}
                         <label class="btn btn-primary active">
                             <input type="radio" name="requiredForRange" id="requiredForRange" value="TRUE" class="active" autocomplete="off" checked> Yes
                         </label>
@@ -253,43 +269,43 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Query String</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="{{ relation.queryString }}" id="queryString" name="queryString">
+                    <input class="form-control" type="text" value="{{ ontology.relation.queryString }}" id="queryString" name="queryString">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">editDate</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.editDate }}" id="editDate" name="editDate">
+                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.editDate }}" id="editDate" name="editDate">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Author</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.author }}" id="author" name="author">
+                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.author }}" id="author" name="author">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Curator</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if relation.new != '1' %} disabled {% endif %} value="{{ relation.curator }}" id="curator" name="curator">
+                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.curator }}" id="curator" name="curator">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Description</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="{{ relation.description }}" id="description" name="description">
+                    <input class="form-control" type="text" value="{{ ontology.relation.description }}" id="description" name="description">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">freebaseID</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="{{ relation.freebaseID }}" id="freebaseID" name="freebaseID">
+                    <input class="form-control" type="text" value="{{ ontology.relation.freebaseID }}" id="freebaseID" name="freebaseID">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Comment</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" value="{{ relation.comment }}" id="comment" name="comment">
+                    <input class="form-control" type="text" value="{{ ontology.relation.comment }}" id="comment" name="comment">
                 </div>
             </div>
             <div class="form-group row">

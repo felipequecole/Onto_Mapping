@@ -46,6 +46,7 @@ def edit_cat(request, id=""):
         if (category['categoryName'] == id):
             categoryDic = category
 
+
     if request.method == 'POST':
         form = dict(request.POST)
         if (id == 'new'):
@@ -58,7 +59,11 @@ def edit_cat(request, id=""):
         categoryDic = form
 
     list = Onto_mapping.list_ontologies()
-    return render(request, 'Onto_Manipulation/edit_cat.html', {'category': categoryDic, 'list': list})
+    if id == 'new':
+        return render(request, 'Onto_Manipulation/edit_cat.html',
+                      {'category': {'new': '1'}, 'list': list, 'cat': ont['Ontology']['Categories']['Category']})
+
+    return render(request, 'Onto_Manipulation/edit_cat.html', {'category': categoryDic, 'list': list, 'cat':ont['Ontology']['Categories']['Category']})
 
 @csrf_exempt
 def edit_rel(request, id=""):
@@ -73,6 +78,9 @@ def edit_rel(request, id=""):
     for relation in ont['Ontology']['Relations']['Relation']:
         if (relation['relationName'] == id):
             relationDic = relation
+    cat = ont['Ontology']['Categories']['Category']
+    rel = ont['Ontology']['Relations']['Relation']
+
 
     if request.method == 'POST':
         form = dict(request.POST)
@@ -85,8 +93,13 @@ def edit_rel(request, id=""):
 
         relationDic = form
 
+    context = {'relation':relationDic, 'categories':cat, 'rel':rel}
+
     list = Onto_mapping.list_ontologies()
-    return render(request, 'Onto_Manipulation/edit_rel.html', {'relation': relationDic, 'list': list})
+    if (id == 'new'):
+        return render(request, 'Onto_Manipulation/edit_rel.html', { 'new': '1', 'list': list, 'ontology': context})
+    return render(request, 'Onto_Manipulation/edit_rel.html', {'ontology': context, 'list': list})
+
 
 def convert(request):
     list = Onto_mapping.list_ontologies()
@@ -150,19 +163,30 @@ def upload_XLS(request):
             with open(filecat, 'wb+') as destination:
                 for chunk in cat.chunks():
                     destination.write(chunk)
-            Onto_mapping.create_xml('relations.xls', 'categories.xls')
+            out_file = 'ontology.xml'
 
-    return render(request, 'Onto_Manipulation/edit.html', {'list':Onto_mapping.list_ontologies()})
+            # this part makes sure that the application won't override a pre-existent ontology
+            counter = 0
+            while(os.path.exists(os.path.join(pwd, 'static/Onto_Manipulation/data/', out_file))):
+                counter += 1
+                out_file = out_file.split('.')
+                out_file = out_file[0].split('_')
+                out_file = out_file[0] + '_' + str(counter) + '.xml'
+            print(os.path.join('static/Onto_Manipulation/data/', out_file))
+            Onto_mapping.create_xml('relations.xls', 'categories.xls', out_file)
+            out_file = out_file.split('.')
+
+    return redirect('/edit/'+out_file[0])
+    #return render(request, 'Onto_Manipulation/edit.html', {'list':Onto_mapping.list_ontologies()})
 
 def select(request, id=""):
     global working_ontology
     if (id == 'default'):
         working_ontology = 'ontology.xml'
-        print(working_ontology)
     else:
        working_ontology= id+'.xml'
-       print(working_ontology)
 
-    return redirect('/relation')
+    global working_ontology
+    return redirect('/relation', dict)
 
 # Create your views here.
