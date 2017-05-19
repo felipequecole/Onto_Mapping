@@ -1,8 +1,11 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
 <h1 align="center">Relation</h1>
 <br>
 <br>
 
-{% extends 'base.html' %}
+
 
 {% block edit_onto %}class="active"{% endblock %}
 
@@ -69,11 +72,11 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Generalizations</label>
                 <div class="col-sm-7">
-                    <select  class="form-control " id="generalizations" name="generalizations">
+                    <select multiple class="selectpicker"  id="generalizations" name="generalizations">
                     {% for relation in ontology.rel %}
-                        <option value="{{ relation.relationName }}">{{ relation.relationName }}</option>
+                        <option>{{ relation.relationName }}</option>
                     {% endfor %}
-              </select>
+                    </select>
                 </div>
             </div>
         {% if new == '1' %}
@@ -185,7 +188,11 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Mutex Exception</label>
                 <div class="col-sm-7">
-                    <input class="form-control" type="text" {% if new != '1' %} disabled {% endif %} value="{{ ontology.relation.mutexExceptions }}" id="mutexExceptions" name="mutexExceptions">
+                       <select  multiple class="selectpicker hideselect " id="mutexExceptions" name="mutexExceptions">
+                    {% for relation in ontology.rel %}
+                        <option value="{{ relation.relationName }}">{{ relation.relationName }}</option>
+                    {% endfor %}
+                       </select>
                 </div>
             </div>
             <div class="form-group row">
@@ -317,6 +324,8 @@
                 </div>
             </div>
         </form>
+
     </div>
+
 
 {% endblock %}

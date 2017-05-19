@@ -107,7 +107,7 @@ def convert(request):
 
 def download_XML(request):
     pwd = os.path.dirname(__file__)
-    file_path = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.xml')
+    file_path = os.path.join(pwd, 'data/ontology.xml')
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
@@ -118,10 +118,11 @@ def download_XML(request):
 
 
 def download_XLS(request):
-    Onto_mapping.create_xls()
+    global working_ontology
+    Onto_mapping.create_xls(working_ontology)
     Onto_mapping.create_zip()
     pwd = os.path.dirname(__file__)
-    file_path = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology.zip')
+    file_path = os.path.join(pwd, 'data/ontology.zip')
 
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
@@ -140,7 +141,7 @@ def download(request):
 def upload_XML(request):
     if request.method=='POST' and request.FILES:
         pwd = os.path.dirname(__file__)
-        filename = os.path.join(pwd, 'static/Onto_Manipulation/data/ontology_edited.xml')
+        filename = os.path.join(pwd, 'data/ontology_edited.xml')
         xml_target = open(filename, 'wb')
         ontology = xmltodict.parse(request.FILES['xmlfile'])
         xmltodict.unparse(ontology, output=xml_target)
@@ -154,8 +155,8 @@ def upload_XLS(request):
             rel = request.FILES['xlsrelation']
             cat = request.FILES['xlscategory']
             pwd = os.path.dirname(__file__)
-            filerel = os.path.join(pwd, 'static/Onto_Manipulation/data/relations.xls')
-            filecat = os.path.join(pwd, 'static/Onto_Manipulation/data/categories.xls')
+            filerel = os.path.join(pwd, '/data/relations.xls')
+            filecat = os.path.join(pwd, 'data/categories.xls')
             with open(filerel, 'wb+') as destination:
                 for chunk in rel.chunks():
                     destination.write(chunk)
@@ -167,12 +168,12 @@ def upload_XLS(request):
 
             # this part makes sure that the application won't override a pre-existent ontology
             counter = 0
-            while(os.path.exists(os.path.join(pwd, 'static/Onto_Manipulation/data/', out_file))):
+            while(os.path.exists(os.path.join(pwd, 'data/', out_file))):
                 counter += 1
                 out_file = out_file.split('.')
                 out_file = out_file[0].split('_')
                 out_file = out_file[0] + '_' + str(counter) + '.xml'
-            print(os.path.join('static/Onto_Manipulation/data/', out_file))
+            print(os.path.join('data/', out_file))
             Onto_mapping.create_xml('relations.xls', 'categories.xls', out_file)
             out_file = out_file.split('.')
 

@@ -9,11 +9,11 @@ import zipfile
 
 def create_xml(rel_path='relations.xls', cat_path='categories.xls', out_file='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     rel_path = os.path.join(pwd, rel_path)
 
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     cat_path = os.path.join(pwd, cat_path)
 
     # Opens the xls file
@@ -69,7 +69,7 @@ def create_xml(rel_path='relations.xls', cat_path='categories.xls', out_file='on
 
     # saves the output file
     pwd = os.path.dirname(__file__)
-    out_path = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    out_path = os.path.join(pwd, 'data/')
     out_path = os.path.join(out_path, out_file)
     outFile = open(out_path, 'wb')
     root_tree.write(outFile)
@@ -78,7 +78,7 @@ def create_xml(rel_path='relations.xls', cat_path='categories.xls', out_file='on
 def linker(filename='ontology.xml'):  # create the references in the xml file
 
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     filename = os.path.join(pwd, filename)
 
     # Open the xml file
@@ -166,7 +166,7 @@ def linker(filename='ontology.xml'):  # create the references in the xml file
 
 def create_xls(input_file='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     input_file = os.path.join(pwd, input_file)
     # open the xml file
     linked_xml = open(input_file, 'rb')
@@ -254,7 +254,7 @@ def create_xls(input_file='ontology.xml'):
 
     # creating the output file
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data')
+    pwd = os.path.join(pwd, 'data')
     outputrel_xls = os.path.join(pwd, 'made_relations.xls')
     out_xls = open(outputrel_xls, 'wb')
     # saving the relations.xls file
@@ -318,7 +318,7 @@ def create_xls(input_file='ontology.xml'):
 
     # creating the output file
     pwd = os.path.dirname(__file__)
-    outputcat_xls = os.path.join(pwd, 'static/Onto_Manipulation/data/made_categories.xls')
+    outputcat_xls = os.path.join(pwd, 'data/made_categories.xls')
     out_xls = open(outputcat_xls, 'wb')
     # saving the relations.xls file
     categories_file.save(out_xls)
@@ -326,7 +326,7 @@ def create_xls(input_file='ontology.xml'):
 
 def return_dict(filename='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     filename = os.path.join(pwd, filename)
     xml = open(filename, 'rb')
     ontology = xmltodict.parse(xml)
@@ -334,7 +334,7 @@ def return_dict(filename='ontology.xml'):
 
 def add_relation(relation, ontology='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join('static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     filename = os.path.join(pwd, ontology)
     xml_origin = open(filename, 'rb')
 
@@ -349,16 +349,23 @@ def add_relation(relation, ontology='ontology.xml'):
            'rangeWithinDomain', 'antireflexive', 'antisymmetric', 'mutexExceptions', 'knownNegatives', 'inverse',
            'seedInstances', 'seedExtractionPatterns', 'nrOfValues', 'nrOfInverseValues', 'requiredForDomain',
            'requiredForRange', 'queryString', 'editDate', 'author', 'curator', 'description', 'freebaseID', 'comment', 'csrfmiddlewaretoken']
+    list_of_gen = relation['generalizations']
+    str_gen = ''
+    if(not isinstance(list_of_gen, str)):
+        for gen in list_of_gen:
+            str_gen = str_gen + ' ' + gen
+    relation['generalizations'] = str_gen
     relation = OrderedDict((k, relation[k]) for k in attrib_order)
     del relation['csrfmiddlewaretoken']
     ontology['Ontology']['Relations']['Relation'].append(relation)
+
 
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)
 
 def edit_relation(relation, relID, ontology='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     filename = os.path.join(pwd, ontology)
     xml_origin = open(filename, 'rb')
 
@@ -387,7 +394,7 @@ def edit_relation(relation, relID, ontology='ontology.xml'):
 
 def edit_category(category, catID, ontology='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     filename = os.path.join(pwd, ontology)
     xml_origin = open(filename, 'rb')
 
@@ -414,7 +421,7 @@ def edit_category(category, catID, ontology='ontology.xml'):
 
 def add_category(category, ontology='ontology.xml'):
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     filename = os.path.join(pwd, ontology)
     xml_origin = open(filename, 'rb')
 
@@ -438,7 +445,7 @@ def add_category(category, ontology='ontology.xml'):
 
 def create_zip(filename_rel='made_relations.xls', filename_cat='made_categories.xls'):
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     zf = zipfile.ZipFile(os.path.join(pwd, 'ontology.zip'), "w")
     zf.write(os.path.join(pwd, filename_rel), arcname='made_relations.xls')
     zf.write(os.path.join(pwd, filename_cat), arcname='made_categories.xls')
@@ -446,7 +453,7 @@ def create_zip(filename_rel='made_relations.xls', filename_cat='made_categories.
 
 def list_ontologies():
     pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'static/Onto_Manipulation/data/')
+    pwd = os.path.join(pwd, 'data/')
     ontologies = []
     for root, dirs, files in os.walk(pwd):
         for file in files:
