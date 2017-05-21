@@ -12,22 +12,30 @@ import os
 
 working_ontology = 'ontology.xml'
 
-def index(request):
+def get_working_ontology():
     global working_ontology
+    return working_ontology
+
+def set_working_ontology(_working_ontology: str):
+    global working_ontology
+    working_ontology = _working_ontology
+
+def index(request):
+    working_ontology = get_working_ontology()
     dict = Onto_mapping.return_dict(working_ontology)
     list = Onto_mapping.list_ontologies()
     context = {'ontology': dict, 'list': list}
-    return render(request, 'home.html', context)
+    return render(request, 'Onto_Manipulation/home.html', context)
 
 def relation(request):
-    global working_ontology
+    working_ontology = get_working_ontology()
     list = Onto_mapping.list_ontologies()
     dict = Onto_mapping.return_dict(working_ontology)
     dict['list'] = list
     return render(request, 'Onto_Manipulation/home_rel.html', dict)
 
 def category(request):
-    global working_ontology
+    working_ontology = get_working_ontology()
     list = Onto_mapping.list_ontologies()
     dict = Onto_mapping.return_dict(working_ontology)
     dict['list'] = list
@@ -35,7 +43,7 @@ def category(request):
 
 @csrf_exempt
 def edit_cat(request, id=""):
-    global working_ontology
+    working_ontology = get_working_ontology()
     categoryDic = {'@id': '', 'categoryName': '', 'englishName': '', 'humanFormat': '', 'populate': '',
                    'visible': '', 'domain': '', 'range': '', 'domainWithinRange': '', 'rangeWithinDomain': '',
                    'antireflexive': '', 'generalizations': '', 'mutexExceptions': '', 'knownNegatives': '', 'instanceType': '',
@@ -50,6 +58,7 @@ def edit_cat(request, id=""):
     if request.method == 'POST':
         form = dict(request.POST)
         if (id == 'new'):
+            print(working_ontology)
             Onto_mapping.add_category(form, working_ontology)
             return render(request, 'Onto_Manipulation/sucess.html', {'new': '1'})
         else:
@@ -67,7 +76,7 @@ def edit_cat(request, id=""):
 
 @csrf_exempt
 def edit_rel(request, id=""):
-    global working_ontology
+    working_ontology = get_working_ontology()
     relationDic = {'@id': '', 'relationName': '', 'humanFormat': '', 'populate': '', 'visible': '',
                    'generalizations': '', 'domain': '', 'range': '', 'domainWithinRange': '', 'rangeWithinDomain': '',
                    'antireflexive': '', 'antisymmetric': '', 'mutexExceptions': '', 'knownNegatives': '', 'inverse': '',
@@ -86,10 +95,10 @@ def edit_rel(request, id=""):
         form = dict(request.POST)
         if(id == 'new'):
             Onto_mapping.add_relation(form, working_ontology)
-            return render(request, 'Onto_Manipulation/sucess.html', {'new': '1'})
+            return render(request, 'Onto_Manipulation/sucess.html', {'list': Onto_mapping.list_ontologies()})
         else:
             Onto_mapping.edit_relation(form, relationDic['@id'], working_ontology)
-            return render(request, 'Onto_Manipulation/sucess.html')
+            return render(request, 'Onto_Manipulation/sucess.html', {'list': Onto_mapping.list_ontologies()})
 
         relationDic = form
 
@@ -118,7 +127,7 @@ def download_XML(request):
 
 
 def download_XLS(request):
-    global working_ontology
+    working_ontology = get_working_ontology()
     Onto_mapping.create_xls(working_ontology)
     Onto_mapping.create_zip()
     pwd = os.path.dirname(__file__)
@@ -155,8 +164,12 @@ def upload_XLS(request):
             rel = request.FILES['xlsrelation']
             cat = request.FILES['xlscategory']
             pwd = os.path.dirname(__file__)
-            filerel = os.path.join(pwd, '/data/relations.xls')
+            filerel = os.path.join(pwd, 'data/relations.xls')
             filecat = os.path.join(pwd, 'data/categories.xls')
+            if(not os.path.exists(filerel)):
+                os.makedirs(filerel)
+            if (not os.path.exists(filecat)):
+                os.makedirs(filecat)
             with open(filerel, 'wb+') as destination:
                 for chunk in rel.chunks():
                     destination.write(chunk)
@@ -181,13 +194,11 @@ def upload_XLS(request):
     #return render(request, 'Onto_Manipulation/edit.html', {'list':Onto_mapping.list_ontologies()})
 
 def select(request, id=""):
-    global working_ontology
     if (id == 'default'):
-        working_ontology = 'ontology.xml'
+        set_working_ontology('ontology.xml')
     else:
-       working_ontology= id+'.xml'
+       set_working_ontology(id+'.xml')
 
-    global working_ontology
     return redirect('/relation', dict)
 
 # Create your views here.

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'Onto_Manipulation/base.html' %}
 {% load staticfiles %}
 
 <h1 align="center">Relation</h1>
@@ -72,7 +72,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Generalizations</label>
                 <div class="col-sm-7">
-                    <select multiple class="selectpicker"  id="generalizations" name="generalizations">
+                    <select multiple class="form-control selectpicker" data-live-search="true" id="generalizations" name="generalizations" title="Select the generalizations">
                     {% for relation in ontology.rel %}
                         <option>{{ relation.relationName }}</option>
                     {% endfor %}
@@ -83,7 +83,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Domain</label>
                 <div class="col-sm-7">
-                    <select  class="form-control " id="domain" name="domain">
+                    <select  class="selectpicker form-control" data-live-search="true" id="domain" name="domain" title="Select the domain" required>
                     {% for category in ontology.categories %}
                         <option value="{{ category.categoryName }}">{{ category.categoryName }}</option>
                     {% endfor %}
@@ -95,7 +95,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Range</label>
                 <div class="col-sm-7">
-                    <select  class="form-control" data-show-subtext="true" data-live-search="true" title="Select Range" id="range" name="range">
+                    <select  class="form-control selectpicker" data-show-subtext="true" data-live-search="true" title="Select the Range" id="range" name="range" required>
                     {% for category in ontology.categories %}
                         <option value="{{ category.categoryName }}" data-token="{{ category.humanFormat }}">{{ category.categoryName }}</option>
                     {% endfor %}
@@ -188,7 +188,7 @@
             <div class="form-group row">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Mutex Exception</label>
                 <div class="col-sm-7">
-                       <select  multiple class="selectpicker hideselect " id="mutexExceptions" name="mutexExceptions">
+                       <select  multiple class="form-control selectpicker" id="mutexExceptions" name="mutexExceptions" title="Select the Mutex Exceptions">
                     {% for relation in ontology.rel %}
                         <option value="{{ relation.relationName }}">{{ relation.relationName }}</option>
                     {% endfor %}
@@ -326,6 +326,7 @@
         </form>
 
     </div>
+
 
 
 {% endblock %}

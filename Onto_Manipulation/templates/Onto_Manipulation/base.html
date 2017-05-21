@@ -5,18 +5,18 @@
 <meta charset="UTF-8">
     <link rel="icon"
       type="image/png"
-      href="{% static 'mall.png' %}" />
+      href="{% static 'Onto_Manipulation/mall.png' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static 'ontomap.css' %}">
+    <link rel="stylesheet" href="{% static 'Onto_Manipulation/ontomap.css' %}">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-    <link rel="stylesheet" href="{% static 'about_us.css' %}">
+    <link rel="stylesheet" href="{% static 'Onto_Manipulation/about_us.css' %}">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
     <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
@@ -28,7 +28,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="{% static 'hideselect.js' %}"></script>
+    <script type="text/javascript" src="{% static 'Onto_Manipulation/hideselect.js' %}"></script>
     <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One|Ubuntu" rel="stylesheet">
 
 
@@ -36,6 +36,11 @@
 
 </head>
 <body>
+
+<div class="preloader">
+    <img class="imageload image-center" src="{% static 'Onto_Manipulation/mall.png' %}">
+</div>
+
 {% block body %}
 {% endblock %}
 <div class="container-fluid">
@@ -49,7 +54,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img class="navbar-brand" src="{% static 'mall.png' %}"  >
+                <img class="navbar-brand" src="{% static 'Onto_Manipulation/mall.png' %}"  >
                 <a class="navbar-brand" href="/">Ontology Editor</a>
             </div>
 

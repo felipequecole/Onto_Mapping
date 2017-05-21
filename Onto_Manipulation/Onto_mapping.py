@@ -82,13 +82,13 @@ def linker(filename='ontology.xml'):  # create the references in the xml file
     filename = os.path.join(pwd, filename)
 
     # Open the xml file
-    raw_xml = open(filename, 'r')
+    raw_xml = open(filename, 'rb')
 
     # Converts the xml to a dict
     ontology = xmltodict.parse(raw_xml)
 
     raw_xml.close()
-    raw_xml = open(filename, 'r')
+    raw_xml = open(filename, 'rb')
 
     tree = etree.parse(raw_xml)
     root = tree.getroot()
@@ -160,7 +160,7 @@ def linker(filename='ontology.xml'):  # create the references in the xml file
 
     pwd = os.path.dirname(__file__)
     out_path = os.path.join(pwd, './data/ontology_linked.xml')
-    outFile = open(out_path, 'w')
+    outFile = open(out_path, 'wb')
     tree.write(outFile)
 
 
@@ -258,6 +258,7 @@ def create_xls(input_file='ontology.xml'):
     outputrel_xls = os.path.join(pwd, 'made_relations.xls')
     out_xls = open(outputrel_xls, 'wb')
     # saving the relations.xls file
+    print(type(relations_file))
     relations_file.save(out_xls)
     out_xls.close()
     # relations.xls complete
@@ -333,6 +334,7 @@ def return_dict(filename='ontology.xml'):
     return ontology
 
 def add_relation(relation, ontology='ontology.xml'):
+    print(ontology)
     pwd = os.path.dirname(__file__)
     pwd = os.path.join(pwd, 'data/')
     filename = os.path.join(pwd, ontology)
@@ -349,17 +351,29 @@ def add_relation(relation, ontology='ontology.xml'):
            'rangeWithinDomain', 'antireflexive', 'antisymmetric', 'mutexExceptions', 'knownNegatives', 'inverse',
            'seedInstances', 'seedExtractionPatterns', 'nrOfValues', 'nrOfInverseValues', 'requiredForDomain',
            'requiredForRange', 'queryString', 'editDate', 'author', 'curator', 'description', 'freebaseID', 'comment', 'csrfmiddlewaretoken']
-    list_of_gen = relation['generalizations']
-    str_gen = ''
-    if(not isinstance(list_of_gen, str)):
-        for gen in list_of_gen:
-            str_gen = str_gen + ' ' + gen
-    relation['generalizations'] = str_gen
+
+    # relation['mutexExceptions'] = str_mut
+    if ((not ('generalizations' in relation.keys())) or relation['generalizations'] == 'None'):
+        relation['generalizations'] = ' '
+    if (not ('mutexExceptions' in relation.keys()) or relation['generalizations']  == 'None'):
+        relation['mutexExceptions'] = ' '
+
+    if (not isinstance(relation['generalizations'], str)):
+        str_relation = ', '.join(relation['generalizations'])
+        relation['generalizations'] = str_relation
+
+    if (not isinstance(relation['mutexExceptions'], str)):
+        str_relation = ', '.join(relation['mutexExceptions'])
+        relation['mutexExceptions'] = str_relation
+
+
+
+
     relation = OrderedDict((k, relation[k]) for k in attrib_order)
     del relation['csrfmiddlewaretoken']
     ontology['Ontology']['Relations']['Relation'].append(relation)
 
-
+    print(filename)
     xml_target = open(filename, 'wb')
     xmltodict.unparse(ontology, output=xml_target)
 
