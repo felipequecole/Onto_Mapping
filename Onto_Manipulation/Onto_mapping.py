@@ -3,6 +3,7 @@ import xmltodict
 import xml.etree.ElementTree as etree
 from xlrd import open_workbook, XL_CELL_TEXT
 import xlwt
+import xlsxwriter
 from collections import OrderedDict
 import os
 import zipfile
@@ -166,12 +167,16 @@ def linker(filename='ontology.xml'):  # create the references in the xml file
 
 def create_xls(input_file='ontology.xml'):
     pwd = os.path.dirname(__file__)
+    print(pwd)
     pwd = os.path.join(pwd, 'data/')
     input_file = os.path.join(pwd, input_file)
     # open the xml file
     linked_xml = open(input_file, 'rb')
 
     # create the workbooks
+    pwd = os.path.dirname(__file__)
+    pwd = os.path.join(pwd, 'data/')
+    outputrel_xls = os.path.join(pwd, 'made_relations.xls')
     relations_file = xlwt.Workbook()
     categories_file = xlwt.Workbook()
 
@@ -190,6 +195,7 @@ def create_xls(input_file='ontology.xml'):
             relations_xls.write(0, i, info)
             i += 1
 
+
     # fill the xls file
 
     relr_index = 1
@@ -203,7 +209,7 @@ def create_xls(input_file='ontology.xml'):
         relc_index += 1
         relations_xls.write(relr_index, relc_index + 1, relation['visible'])
         relc_index += 1
-        relations_xls.write(relr_index, relc_index + 1, relation['generalizations'])
+        relations_xls.write(relr_index, relc_index + 1, list_to_string(relation['generalizations']))
         relc_index += 1
         relations_xls.write(relr_index, relc_index + 1, relation['domain'])
         relc_index += 1
@@ -217,7 +223,7 @@ def create_xls(input_file='ontology.xml'):
         relc_index += 1
         relations_xls.write(relr_index, relc_index + 1, relation['antisymmetric'])
         relc_index += 1
-        relations_xls.write(relr_index, relc_index + 1, relation['mutexExceptions'])
+        relations_xls.write(relr_index, relc_index + 1, list_to_string(relation['mutexExceptions']))
         relc_index += 1
         relations_xls.write(relr_index, relc_index + 1, relation['knownNegatives'])
         relc_index += 1
@@ -252,15 +258,15 @@ def create_xls(input_file='ontology.xml'):
         relc_index = -1
         relr_index += 1
 
+
     # creating the output file
-    pwd = os.path.dirname(__file__)
-    pwd = os.path.join(pwd, 'data')
-    outputrel_xls = os.path.join(pwd, 'made_relations.xls')
-    out_xls = open(outputrel_xls, 'wb')
+
     # saving the relations.xls file
-    print(type(relations_file))
-    relations_file.save(out_xls)
-    out_xls.close()
+    out_rel = open(outputrel_xls, 'wb')
+    relations_file.save(out_rel)
+    out_rel.close()
+
+    # relations_file.close()
     # relations.xls complete
 
 
@@ -287,9 +293,9 @@ def create_xls(input_file='ontology.xml'):
         catc_index += 1
         categories_xls.write(catr_index, catc_index, category['visible'])
         catc_index += 1
-        categories_xls.write(catr_index, catc_index, category['generalizations'])
+        categories_xls.write(catr_index, catc_index, list_to_string(category['generalizations']))
         catc_index += 1
-        categories_xls.write(catr_index, catc_index, category['mutexExceptions'])
+        categories_xls.write(catr_index, catc_index, list_to_string(category['mutexExceptions']))
         catc_index += 1
         categories_xls.write(catr_index, catc_index, category['knownNegatives'])
         catc_index += 1
@@ -479,3 +485,23 @@ def list_ontologies():
         ontologies.remove('ontology')
         ontologies.append('ontology')
     return ontologies
+
+def list_to_string(lista):
+    string_out = ""
+    contador = 0
+    #print(lista)
+    if (isinstance(lista, list)):
+        for element in lista:
+            if contador > 0:
+                string_out += " " + element
+            else:
+                string_out += element
+                contador += 1
+    elif(isinstance(lista, str)):
+        if "," in lista:
+            aux = lista.split(",")
+            for subpart in aux:
+                string_out+= subpart
+        else:
+            string_out = lista
+    return string_out

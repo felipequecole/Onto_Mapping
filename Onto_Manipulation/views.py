@@ -116,7 +116,8 @@ def convert(request):
 
 def download_XML(request):
     pwd = os.path.dirname(__file__)
-    file_path = os.path.join(pwd, 'data/ontology.xml')
+    file_path = os.path.join(pwd, 'data/')
+    file_path = os.path.join(file_path, get_working_ontology())
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
@@ -131,6 +132,7 @@ def download_XLS(request):
     Onto_mapping.create_xls(working_ontology)
     Onto_mapping.create_zip()
     pwd = os.path.dirname(__file__)
+    print(pwd)
     file_path = os.path.join(pwd, 'data/ontology.zip')
 
     if os.path.exists(file_path):
