@@ -34,10 +34,10 @@
                 <label for="example-text-input" class="col-sm-2 col-form-label">Populate</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     <label class="btn btn-primary">
-                        <input type="radio" name="populate" id="populate" value="1" autocomplete="off" checked required> Sim
+                        <input type="radio" name="populate" id="populate" value="1" autocomplete="off" checked required> True
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="populate" id="populate" value= "0" autocomplete="off"> Nao
+                        <input type="radio" name="populate" id="populate" value= "0" autocomplete="off"> False
                     </label>
                 </div>
             </div>
@@ -45,10 +45,10 @@
                 <label for="example-text-input" class="col-sm-2 col-form-label">Visible</label>
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     <label class="btn btn-primary">
-                        <input type="radio" name="visible" id="visible" value="1" autocomplete="off" checked required> Sim
+                        <input type="radio" name="visible" id="visible" value="1" autocomplete="off" checked required> True
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="visible" id="visible" value= "0" autocomplete="off"> Nao
+                        <input type="radio" name="visible" id="visible" value= "0" autocomplete="off"> False
                     </label>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                 <div class="col-sm-7">
                     <select  class="form-control " id="generalizations" name="generalizations">
                     {% for category in cat %}
-                        <input type="checkbox" value="{{ category.categoryName }}">{{ category.categoryName }}</input>
+                        <input type="checkbox" value="{{ category.category'ame }}">{{ category.categoryName }}</input>
                     {% endfor %}
               </select>
                 </div>

@@ -31,17 +31,17 @@
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     {% if ontology.relation.visible == '1' %}
                         <label class="btn btn-primary active">
-                            <input type="radio" name="visible" id="visible"  value="1" autocomplete="off" checked> Yes
+                            <input type="radio" name="visible" id="visible"  value="1" autocomplete="off" checked> True
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="visible" id="visible"  value = "0" autocomplete="off"> No
+                            <input type="radio" name="visible" id="visible"  value = "0" autocomplete="off"> False
                         </label>
                     {% else %}
                         <label class="btn btn-primary">
-                            <input type="radio" name="visible" id="visible" value="1" autocomplete="off" > Yes
+                            <input type="radio" name="visible" id="visible" value="1" autocomplete="off" > True
                         </label>
                         <label class="btn btn-primary active">
-                            <input type="radio" name="visible" id="visible"  value = "0" autocomplete="off" checked> No
+                            <input type="radio" name="visible" id="visible"  value = "0" autocomplete="off" checked> False
                         </label>
                     {% endif %}
 
@@ -52,17 +52,17 @@
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     {% if ontology.relation.populate == '1' %}
                         <label class="btn btn-primary active">
-                            <input type="radio" name="populate"  id="populate" value="1" autocomplete="off" checked> Yes
+                            <input type="radio" name="populate"  id="populate" value="1" autocomplete="off" checked> True
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="populate" {% if new != '1' %} disabled {% endif %} id="populate" value = "0" autocomplete="off"> No
+                            <input type="radio" name="populate" {% if new != '1' %} disabled {% endif %} id="populate" value = "0" autocomplete="off"> False
                         </label>
                         {% else %}
                              <label class="btn btn-primary active">
-                            <input type="radio" name="populate" {% if new != '1' %} disabled {% endif %} id="populate" value="1" autocomplete="off" > Yes
+                            <input type="radio" name="populate" {% if new != '1' %} disabled {% endif %} id="populate" value="1" autocomplete="off" > True
                             </label>
                             <label class="btn btn-primary">
-                                <input type="radio" name="populate"  id="populate" value = "0" autocomplete="off" checked> No
+                                <input type="radio" name="populate"  id="populate" value = "0" autocomplete="off" checked> False
                             </label>
                     {% endif %}
                 </div>
@@ -109,17 +109,17 @@
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     {% if ontology.relation.domainWithinRange == '1' %}
                         <label class="btn btn-primary active">
-                            <input type="radio" name="domainWithinRange" id="domainWithinRange" value="1" autocomplete="off" checked> Yes
+                            <input type="radio" name="domainWithinRange" id="domainWithinRange" value="1" autocomplete="off" checked> True
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="domainWithinRange" id="domainWithinRange" value = "0" autocomplete="off"> No
+                            <input type="radio" name="domainWithinRange" id="domainWithinRange" value = "0" autocomplete="off"> False
                         </label>
                     {% else %}
                          <label class="btn btn-primary">
-                        <input type="radio" name="domainWithinRange" id="domainWithinRange" value="1" autocomplete="off"> Yes
+                        <input type="radio" name="domainWithinRange" id="domainWithinRange" value="1" autocomplete="off"> True
                     </label>
                     <label class="btn btn-primary active">
-                        <input type="radio" name="domainWithinRange" id="domainWithinRange" value = "0" autocomplete="off" checked> No
+                        <input type="radio" name="domainWithinRange" id="domainWithinRange" value = "0" autocomplete="off" checked> False
                     </label>
                     {% endif %}
                 </div>
@@ -129,17 +129,17 @@
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     {% if ontology.relation.rangeWithinDomain == '1' %}
                         <label class="btn btn-primary active">
-                            <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value="1" autocomplete="off" checked> Yes
+                            <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value="1" autocomplete="off" checked> True
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value = "0" autocomplete="off"> No
+                            <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value = "0" autocomplete="off"> False
                         </label>
                     {% else %}
                          <label class="btn btn-primary">
-                        <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value="1" autocomplete="off" > Yes
+                        <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value="1" autocomplete="off" > True
                     </label>
                     <label class="btn btn-primary active">
-                        <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value = "0" autocomplete="off" checked> No
+                        <input type="radio" name="rangeWithinDomain" id="rangeWithinDomain" value = "0" autocomplete="off" checked> False
                     </label>
                     {% endif %}
                 </div>
@@ -149,17 +149,17 @@
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     {% if ontology.relation.antireflexive == '1' %}
                         <label class="btn btn-primary active">
-                            <input type="radio" name="antireflexive" id="antireflexive" value="1" autocomplete="off" checked> Yes
+                            <input type="radio" name="antireflexive" id="antireflexive" value="1" autocomplete="off" checked> True
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="antireflexive" id="antireflexive" value = "0" autocomplete="off"> No
+                            <input type="radio" name="antireflexive" id="antireflexive" value = "0" autocomplete="off"> False
                         </label>
                     {% else %}
                         <label class="btn btn-primary">
-                        <input type="radio" name="antireflexive" id="antireflexive" value="1" autocomplete="off" > Yes
+                        <input type="radio" name="antireflexive" id="antireflexive" value="1" autocomplete="off" > True
                     </label>
                     <label class="btn btn-primary active">
-                        <input type="radio" name="antireflexive" id="antireflexive" value = "0" autocomplete="off" checked> No
+                        <input type="radio" name="antireflexive" id="antireflexive" value = "0" autocomplete="off" checked> False
                     </label>
                     {% endif %}
                 </div>
@@ -169,17 +169,17 @@
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     {% if ontology.relation.antisymmetric == '1' %}
                         <label class="btn btn-primary active">
-                            <input type="radio" name="antisymmetric" id="antisymmetric" value="1" autocomplete="off" checked> Yes
+                            <input type="radio" name="antisymmetric" id="antisymmetric" value="1" autocomplete="off" checked> True
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="antisymmetric" id="antisymmetric" value = "0" autocomplete="off"> No
+                            <input type="radio" name="antisymmetric" id="antisymmetric" value = "0" autocomplete="off"> False
                         </label>
                     {% else %}
                          <label class="btn btn-primary">
-                        <input type="radio" name="antisymmetric" id="antisymmetric" value="1" autocomplete="off" > Yes
+                        <input type="radio" name="antisymmetric" id="antisymmetric" value="1" autocomplete="off" > True
                     </label>
                     <label class="btn btn-primary active">
-                        <input type="radio" name="antisymmetric" id="antisymmetric" value = "0" autocomplete="off" checked> No
+                        <input type="radio" name="antisymmetric" id="antisymmetric" value = "0" autocomplete="off" checked> False
                     </label>
                     {% endif %}
                 </div>
@@ -237,17 +237,17 @@
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     {% if ontology.relation.requiredForDomain == 'TRUE' %}
                         <label class="btn btn-primary active">
-                            <input type="radio" name="requiredForDomain" id="requiredForDomain" value="TRUE" autocomplete="off" checked> Yes
+                            <input type="radio" name="requiredForDomain" id="requiredForDomain" value="TRUE" autocomplete="off" checked> True
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="requiredForDomain" id="requiredForDomain" value = "FALSE" autocomplete="off"> No
+                            <input type="radio" name="requiredForDomain" id="requiredForDomain" value = "FALSE" autocomplete="off"> False
                         </label>
                     {% else %}
                         <label class="btn btn-primary">
-                        <input type="radio" name="requiredForDomain" id="requiredForDomain" value="TRUE" autocomplete="off" > Yes
+                        <input type="radio" name="requiredForDomain" id="requiredForDomain" value="TRUE" autocomplete="off" > True
                     </label>
                     <label class="btn btn-primary active">
-                        <input type="radio" name="requiredForDomain" id="requiredForDomain" value = "FALSE" autocomplete="off" checked> No
+                        <input type="radio" name="requiredForDomain" id="requiredForDomain" value = "FALSE" autocomplete="off" checked> False
                     </label>
                     {% endif %}
                 </div>
@@ -257,17 +257,17 @@
                 <div class="btn-group col-sm-7" data-toggle="buttons">
                     {% if ontology.relation.requiredForRange == 'TRUE' %}
                         <label class="btn btn-primary active">
-                            <input type="radio" name="requiredForRange" id="requiredForRange" value="TRUE" class="active" autocomplete="off" checked> Yes
+                            <input type="radio" name="requiredForRange" id="requiredForRange" value="TRUE" class="active" autocomplete="off" checked> True
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="requiredForRange"   id="requiredForRange" value = "FALSE" autocomplete="off"> No
+                            <input type="radio" name="requiredForRange"   id="requiredForRange" value = "FALSE" autocomplete="off"> False
                         </label>
                     {% else %}
                         <label class="btn btn-primary">
-                            <input type="radio" name="requiredForRange" id="requiredForRange" value="TRUE" class="active" autocomplete="off" > Yes
+                            <input type="radio" name="requiredForRange" id="requiredForRange" value="TRUE" class="active" autocomplete="off" > True
                          </label>
                          <label class="btn btn-primary active">
-                            <input type="radio" name="requiredForRange" id="requiredForRange" value = "FALSE" autocomplete="off" checked> No
+                            <input type="radio" name="requiredForRange" id="requiredForRange" value = "FALSE" autocomplete="off" checked> False
                          </label>
                     {% endif %}
                 </div>
