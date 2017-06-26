@@ -3,7 +3,7 @@ import xmltodict
 import xml.etree.ElementTree as etree
 from xlrd import open_workbook, XL_CELL_TEXT
 import xlwt
-import xlsxwriter
+# import xlsxwriter
 from collections import OrderedDict
 import os
 import zipfile
