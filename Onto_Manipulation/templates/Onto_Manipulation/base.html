@@ -12,26 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'Onto_Manipulation/ontomap.css' %}">
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
     <link rel="stylesheet" href="{% static 'Onto_Manipulation/about_us.css' %}">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
-    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
-    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.knob/1.2.2/jquery.knob.js"></script>
-    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload-process.js"></script>
-    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload-validate.js"></script>
-    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload-ui.js"></script>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="{% static 'Onto_Manipulation/hideselect.js' %}"></script>
-    <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One|Ubuntu" rel="stylesheet">
-
-    <script type="text/javascript" src="{% static 'dialog.js' %}"> </script>
+   <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One|Ubuntu" rel="stylesheet">
 
 
     <title>NELL's Ontology Manipulation</title>
@@ -66,12 +48,12 @@
                     <li class="dropdown" {% block edit_onto %}{% endblock %}>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Ontology
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="menu" class="dropdown-menu">
                             <li><a data-toggle="modal" data-target="#editModal" class="clickable">Edit</a></li>
                             <li><a href="/download_xml">Download XML</a></li>
                             <li><a href="/download_xls">Download XLS</a></li>
-                            <li><a href="/upload_xml" id="openUploadXML">Upload XML</a></li>
-                            <li><a href="/upload_xls" id="openUploadXLS">Upload XLS</a></li>
+                            <li><a href="/upload_xml" id="openUploadXML" data-toggle="modal" data-target="#uploadModalXML">Upload XML</a></li>
+                            <li><a href="/upload_xls" id="openUploadXLS" data-toggle="modal" data-target="#uploadModalXLS">Upload XLS</a></li>
                         </ul>
                     </li>
                     <li {% block onto_converter %}{% endblock %}><a href="/convert">About Us</a></li>
@@ -111,7 +93,8 @@
                 <div id="upload">
                     <form action="/upload_xml/" enctype="multipart/form-data" method="POST" id="myform">
                         {% csrf_token %}
-                        <input type="file" name="xmlfile" id="xmlfile" />
+
+                            <input type="file" name="xmlfile" id="xmlfile" />
                         <br>
                         <div class="fileupload-buttonbar">
                             <div>
@@ -184,7 +167,7 @@
       </div>
       <div class="modal-body">
         <p>Please select the ontology you want to edit: </p>
-      <div class="btn-group-vertical" role="group">
+      <div class="btn-group-vertical" role="group" align="center">
           {% for onto in list %}
               {% if onto == "ontology" %}
                     <a class="btn btn-primary btn-lg" href="/edit/default/">Default</a>
@@ -201,6 +184,28 @@
 
   </div>
 </div>
+<!-- Scripts para bootstrap -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Scripts para upload de arquivos -->
+<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.knob/1.2.2/jquery.knob.js"></script>
+<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload-process.js"></script>
+<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload-validate.js"></script>
+<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload-ui.js"></script>
+
+<!-- Bootstrap dropdown select-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+<!-- Scripts personalizados -->
+<script type="text/javascript" src="{% static 'Onto_Manipulation/hideselect.js' %}"></script>
+<script type="text/javascript" src="{% static 'dialog.js' %}"> </script>
+
+{% block extend_scripts %}
+{% endblock extend_scripts %}
 
 </body>
 

@@ -7,7 +7,7 @@ $(function () {
         $('#uploadModal').modal('show');
     });
 
-    $('body').on('click', '#openUploadXLS', function (e) {
+    $('#menu').on('click', '#openUploadXLS', function (e) {
         e.preventDefault();
         $('#upload ol').empty();
         $('#uploadModalXLS').modal('show');
